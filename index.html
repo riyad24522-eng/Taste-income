@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>bKash Generator (Realistic Phone View)</title>
+  <title>bKash Generator (Individual Notification Toggle)</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
@@ -108,7 +108,7 @@
       justify-content: space-between;
       position: relative;
       overflow: hidden;
-      border-radius: 28px; /* Rounded corners for screenshot */
+      border-radius: 28px;
     }
 
     /* --- REALISTIC ANDROID STATUS BAR (BLACK) --- */
@@ -124,6 +124,8 @@
       color: #ffffff;
       position: relative;
       z-index: 10;
+      border-top-left-radius: 28px;
+      border-top-right-radius: 28px;
     }
 
     .status-left { display: flex; align-items: center; gap: 6px; z-index: 2; }
@@ -272,6 +274,8 @@
       justify-content: center;
       align-items: center;
       padding-bottom: 2px;
+      border-bottom-left-radius: 28px;
+      border-bottom-right-radius: 28px;
     }
     .nav-pill {
       width: 90px;
@@ -308,24 +312,23 @@
     }
     .notif-row {
       display: grid;
-      grid-template-columns: 1fr 2fr;
+      grid-template-columns: auto 1fr 2fr; /* Checkbox, Select, Input */
       gap: 6px;
       margin-bottom: 6px;
+      align-items: center;
     }
-    .notif-row select, .notif-row input {
+    .notif-row input[type="checkbox"] {
+      width: 14px;
+      height: 14px;
+      cursor: pointer;
+      accent-color: #d11261;
+    }
+    .notif-row select, .notif-row input[type="text"] {
       padding: 6px;
       font-size: 11px;
       border-radius: 4px;
       border: 1px solid #cbd5e1;
-    }
-    .toggle-switch {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      font-weight: 600;
-      color: #334155;
-      margin-top: 5px;
+      width: 100%;
     }
   </style>
 </head>
@@ -374,7 +377,6 @@
       <label>বর্তমান মোট ব্যালেন্স (৳)</label>
       <input type="number" step="0.01" class="input-field" id="currentBalanceInput" value="983262.79">
     </div>
-    <!-- UPDATED: Manual phone number input -->
     <div class="input-group">
       <label>মোবাইল নম্বর (ইচ্ছেমতো লিখুন, খালি রাখলে অটো হবে)</label>
       <input type="tel" class="input-field" id="phoneInput" value="" placeholder="01XXXXXXXXX">
@@ -388,11 +390,13 @@
       <input type="number" class="input-field" id="amountInput" value="7060.00" step="0.01">
     </div>
 
-    <!-- NOTIFICATION SETTINGS -->
+    <!-- NOTIFICATION SETTINGS (UPDATED: Individual Toggles) -->
     <div class="notif-settings">
       <h3><i class="fas fa-bell"></i> স্ট্যাটাস বার নোটিফিকেশন সেটিংস</h3>
       
+      <!-- Notification 1 -->
       <div class="notif-row">
+        <input type="checkbox" id="notif1Toggle" checked>
         <select id="notif1App">
           <option value="telegram">Telegram</option>
           <option value="youtube">YouTube</option>
@@ -402,7 +406,9 @@
         <input type="text" id="notif1Text" value="1 new message" placeholder="Notification 1 text">
       </div>
 
+      <!-- Notification 2 -->
       <div class="notif-row">
+        <input type="checkbox" id="notif2Toggle" checked>
         <select id="notif2App">
           <option value="youtube">YouTube</option>
           <option value="telegram">Telegram</option>
@@ -412,7 +418,9 @@
         <input type="text" id="notif2Text" value="1 new video" placeholder="Notification 2 text">
       </div>
 
+      <!-- Notification 3 -->
       <div class="notif-row">
+        <input type="checkbox" id="notif3Toggle" checked>
         <select id="notif3App">
           <option value="tiktok">TikTok</option>
           <option value="youtube">YouTube</option>
@@ -422,9 +430,6 @@
         <input type="text" id="notif3Text" value="1 new follower" placeholder="Notification 3 text">
       </div>
 
-      <label class="toggle-switch">
-        <input type="checkbox" id="showNotifShade" checked> নোটিফিকেশন আইকন দেখান (স্ট্যাটাস বারে)
-      </label>
     </div>
 
     <button class="btn-primary" id="generateBtn"><i class="fas fa-camera"></i> স্ক্রিনশট তৈরি করুন</button>
@@ -591,8 +596,6 @@
     const chargeNote = document.getElementById('chargeNote');
     const currentBalanceInput = document.getElementById('currentBalanceInput');
 
-    const showNotifShade = document.getElementById('showNotifShade');
-
     let formattedNewBalance = "9,73,462.79";
     let isBalanceVisible = true;
 
@@ -638,12 +641,11 @@
       const userPhone = document.getElementById('phoneInput').value.trim();
       let finalPhone;
 
-      // যদি ইউজার ১১ ডিজিটের সঠিক নাম্বার লিখে, তবে সেটা নিবে। নাহলে অটো জেনারেট করবে।
       if (userPhone.length === 11 && userPhone.startsWith('01')) {
         finalPhone = userPhone;
       } else {
         finalPhone = generateRandomPhone();
-        document.getElementById('phoneInput').value = finalPhone; // Auto-fill for next time
+        document.getElementById('phoneInput').value = finalPhone;
       }
 
       // ২. র‍্যান্ডম ট্রানজেকশন আইডি
@@ -664,12 +666,10 @@
         }
       }
 
-      // স্ট্যাটাস বারের সময়
       const statusH = finalHH % 12 || 12;
       const statusM = String(finalMM).padStart(2, '0');
       dispStatusTime.textContent = `${statusH}:${statusM}`;
 
-      // ট্রানজেকশনের সময়
       const ampm = finalHH >= 12 ? 'pm' : 'am';
       const txnH = String(finalHH % 12 || 12).padStart(2, '0');
       const txnM = String(finalMM).padStart(2, '0');
@@ -726,12 +726,14 @@
       displayBalance.textContent = `৳${formattedNewBalance}`;
       toggleBalanceBtn.className = 'far fa-eye-slash icon-pink';
 
-      // ৭. স্ট্যাটাস বার নোটিফিকেশন আপডেট
+      // ৭. স্ট্যাটাস বার নোটিফিকেশন আপডেট (ইন্ডিভিজুয়াল টগল অনুযায়ী)
+      const toggles = ['notif1Toggle', 'notif2Toggle', 'notif3Toggle'];
       const apps = ['notif1App', 'notif2App', 'notif3App'];
       let notifIconsHtml = '';
 
-      if (showNotifShade.checked) {
-        for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 3; i++) {
+        // যদি চেকবক্সে টিক দেওয়া থাকে, শুধু তাহলেই আইকন অ্যাড হবে
+        if (document.getElementById(toggles[i]).checked) {
           const appVal = document.getElementById(apps[i]).value;
           const iconClass = getNotifIconClass(appVal);
           notifIconsHtml += `<i class="${iconClass}"></i>`;
@@ -750,7 +752,7 @@
       document.getElementById('pageInput').classList.remove('hidden');
     });
 
-    // ইমেজ ডাউনলোড (Rounded Corners Support)
+    // ইমেজ ডাউনলোড (Transparent Rounded Corners Support)
     document.getElementById('downloadImgBtn').addEventListener('click', function() {
       const area = document.getElementById('screenshotArea');
       
