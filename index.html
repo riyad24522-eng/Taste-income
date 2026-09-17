@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>bKash Generator (Individual Notification Toggle)</title>
+  <title>bKash Send Money Screenshot Generator</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
@@ -12,28 +12,25 @@
       padding: 0;
       box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Bengali", sans-serif;
     }
-
     body {
       background: #0f172a;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 10px;
+      padding: 12px;
     }
-
     .app-card {
-      max-width: 380px;
+      max-width: 390px;
       width: 100%;
       background: #f7f8fa;
       border-radius: 28px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
       overflow: hidden;
       border: 1px solid #334155;
     }
-
     .page { padding: 16px; }
     .page.hidden { display: none; }
 
@@ -49,105 +46,136 @@
       color: #d11261;
       font-size: 10px;
       font-weight: 700;
-      padding: 3px 8px;
+      padding: 3px 10px;
       border-radius: 20px;
     }
-    .input-group { margin-bottom: 10px; }
+    .input-group { margin-bottom: 8px; }
     .input-group label {
       display: block;
       font-size: 11px;
       font-weight: 600;
-      color: #475569;
-      margin-bottom: 4px;
+      color: #1f3348;
+      margin-bottom: 3px;
     }
     .input-field, select.input-field {
       width: 100%;
       padding: 8px 10px;
       background: #ffffff;
       border: 1.2px solid #cbd5e1;
-      border-radius: 6px;
+      border-radius: 8px;
       font-size: 12px;
       outline: none;
-      color: #1e293b;
+      color: #0b1a2a;
     }
     .grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 8px;
     }
     .btn-primary {
       width: 100%;
       background: #d11261;
       border: none;
-      padding: 10px;
-      border-radius: 20px;
+      padding: 11px;
+      border-radius: 30px;
       color: white;
       font-weight: 700;
-      font-size: 13px;
+      font-size: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      margin-top: 10px;
+      margin-top: 8px;
       cursor: pointer;
+      transition: 0.15s;
     }
+    .btn-primary:active { opacity: 0.7; }
     .btn-secondary {
       background: #e2e8f0;
-      color: #334155;
+      color: #1f3348;
       border: 1px solid #cbd5e1;
-      margin-top: 8px;
+      margin-top: 0;
     }
 
-    /* --- FULL MOBILE SCREEN CONTAINER --- */
-    .receipt-card { 
-      background: #f7f8fa; 
-      width: 100%; 
-      min-height: 720px;
+    /* ===================================================
+       ==== ফুল স্ক্রিন বক্স (ফোনের পুরো স্ক্রিন জুড়ে) ====
+       =================================================== */
+    .receipt-card {
+      background: #f7f8fa;
+      width: 100%;
+      height: 820px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       position: relative;
       overflow: hidden;
       border-radius: 28px;
     }
 
-    /* --- REALISTIC ANDROID STATUS BAR (BLACK) --- */
+    /* ==== আসল অ্যান্ড্রয়েড স্ট্যাটাস বার (কালো) ==== */
     .status-bar {
-      height: 32px;
+      height: 34px;
       background: #000000;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 14px;
-      font-size: 11px;
-      font-weight: 400;
+      padding: 0 16px;
+      font-size: 11.5px;
+      font-weight: 500;
       color: #ffffff;
-      position: relative;
-      z-index: 10;
       border-top-left-radius: 28px;
       border-top-right-radius: 28px;
+      position: relative;
+      z-index: 5;
     }
-
-    .status-left { display: flex; align-items: center; gap: 6px; z-index: 2; }
-    .status-right { display: flex; align-items: center; gap: 5px; font-size: 10px; z-index: 2; }
-    .net-speed { font-size: 8px; line-height: 1; text-align: right; margin-right: 2px; opacity: 0.8; font-weight: 300; }
-    
-    .status-notif-icons {
+    .status-left {
       display: flex;
-      gap: 4px;
-      margin-left: 4px;
+      align-items: center;
+      gap: 6px;
     }
-    .status-notif-icons i {
+    .status-left .time-text {
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+    .status-left i {
       font-size: 10px;
-      opacity: 0.9;
+      opacity: 0.85;
+    }
+    .status-right {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
+    }
+    .net-speed {
+      font-size: 7.5px;
+      line-height: 1.1;
+      text-align: right;
+      font-weight: 500;
+      opacity: 0.95;
+    }
+    .volte-badge {
+      font-size: 6.5px;
+      border: 0.8px solid #ffffff;
+      padding: 0 2px;
+      border-radius: 2px;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: 0.2px;
     }
 
-    /* --- RECEIPT UI --- */
+    /* ==== মূল কন্টেন্ট ==== */
+    .receipt-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 22px 16px 0px;
+    }
+
     .top-success {
-      padding: 25px 16px 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      margin-bottom: 18px;
     }
     .top-success .text-title {
       font-size: 15px;
@@ -159,25 +187,25 @@
     .top-success .text-pink { color: #d11261; }
     .top-success .text-green { color: #007a48; }
     .top-success .check-circle {
-      width: 22px;
-      height: 22px;
-      border: 1.5px solid #007a48;
+      width: 24px;
+      height: 24px;
+      border: 1.8px solid #007a48;
       border-radius: 50%;
       color: #007a48;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
+      font-size: 12px;
     }
 
     .user-row {
       display: flex;
       align-items: center;
-      padding: 10px 16px 16px;
+      padding-bottom: 18px;
     }
     .avatar-circle {
-      width: 42px;
-      height: 42px;
+      width: 46px;
+      height: 46px;
       background: #8084be;
       color: #fff;
       font-weight: 500;
@@ -189,59 +217,67 @@
       flex-shrink: 0;
     }
     .phone-details { flex: 1; margin-left: 12px; }
-    .phone-details .num-main { font-size: 13px; font-weight: 600; color: #1a1a1a; }
-    .phone-details .num-sub { font-size: 12px; font-weight: 500; color: #555555; }
+    .phone-details .num-main { font-size: 14px; font-weight: 600; color: #1a1a1a; }
+    .phone-details .num-sub { font-size: 12.5px; font-weight: 500; color: #555555; margin-top: 2px; }
     .call-btn {
-      border: 1px solid #d11261;
+      border: 1.2px solid #d11261;
       background: transparent;
       color: #d11261;
-      padding: 5px 12px;
-      border-radius: 6px;
-      font-size: 11px;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 11.5px;
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
     }
 
     .grid-2col {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      border-top: 1px solid #f1f5f9;
+      border-top: 1px solid #eaeaea;
+      margin: 0 -16px;
     }
     .grid-item {
       padding: 14px 16px;
-      border-bottom: 1px solid #f1f5f9;
-      border-right: 1px solid #f1f5f9;
+      border-bottom: 1px solid #eaeaea;
+      border-right: 1px solid #eaeaea;
       background: #f7f8fa;
     }
     .grid-item:nth-child(2n) { border-right: none; }
-    .grid-item.span2 { grid-column: span 2; }
-    .grid-label { font-size: 10px; font-weight: 500; color: #666666; margin-bottom: 4px; }
-    .grid-value { font-size: 13px; font-weight: 600; color: #1a1a1a; display: flex; align-items: center; gap: 5px; }
-    .charge-note { font-size: 10px; font-weight: 400; color: #777777; margin-top: 3px; }
+    .grid-item.span2 { grid-column: span 2; border-right: none; }
+    .grid-label { font-size: 10.5px; font-weight: 500; color: #666666; margin-bottom: 4px; }
+    .grid-value { font-size: 13.5px; font-weight: 600; color: #1a1a1a; display: flex; align-items: center; gap: 5px; }
+    .charge-note { font-size: 10.5px; font-weight: 400; color: #777777; margin-top: 3px; }
     .icon-pink { color: #d11261; font-size: 12px; cursor: pointer; padding: 2px; }
 
-    .mid-actions { display: flex; gap: 10px; padding: 18px 16px; background: #f7f8fa; }
+    .mid-actions {
+      display: flex;
+      gap: 10px;
+      padding: 18px 0 0;
+    }
     .mid-btn {
       flex: 1;
-      border: 1px solid #d11261;
+      border: 1.2px solid #d11261;
       background: #f7f8fa;
       color: #d11261;
-      padding: 8px 0;
-      border-radius: 8px;
-      font-size: 12px;
+      padding: 10px 0;
+      border-radius: 10px;
+      font-size: 12.5px;
       font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
+      gap: 6px;
     }
 
-    .reward-area { text-align: center; padding: 15px 16px 25px; background: #f7f8fa; }
+    .reward-area {
+      text-align: center;
+      padding: 22px 0 0;
+    }
     .star-circle {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
       background: #d11261;
       color: #fff;
       border-radius: 50%;
@@ -249,37 +285,39 @@
       align-items: center;
       justify-content: center;
       margin: 0 auto 8px;
-      font-size: 14px;
+      font-size: 16px;
     }
-    .reward-sub { font-size: 11px; color: #555555; }
-    .reward-title { font-size: 14px; font-weight: 700; color: #1a1a1a; margin: 3px 0; }
-    .reward-desc { font-size: 11px; color: #555555; }
+    .reward-sub { font-size: 11.5px; color: #555555; }
+    .reward-title { font-size: 14.5px; font-weight: 700; color: #1a1a1a; margin: 3px 0; }
+    .reward-desc { font-size: 11.5px; color: #555555; }
     .reward-link { color: #d11261; font-weight: 700; text-decoration: underline; }
+
+    .bottom-spacer { flex: 1; }
 
     .bottom-home {
       background: #d11261;
       color: #fff;
-      padding: 14px 16px;
+      padding: 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-weight: 700;
-      font-size: 13px;
+      font-size: 14px;
     }
 
     .nav-bar-indicator {
-      height: 14px;
+      height: 18px;
       background: #f7f8fa;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding-bottom: 2px;
+      padding-bottom: 5px;
       border-bottom-left-radius: 28px;
       border-bottom-right-radius: 28px;
     }
     .nav-pill {
-      width: 90px;
-      height: 3px;
+      width: 110px;
+      height: 4.5px;
       background: #222222;
       border-radius: 4px;
     }
@@ -294,76 +332,50 @@
     .ctrl-bar .btn-primary { flex: 2; margin-top: 0; }
     .ctrl-bar .btn-secondary { flex: 1; margin-top: 0; }
 
-    /* Notification Settings Form */
-    .notif-settings {
-      background: #f1f5f9;
-      padding: 12px;
+    /* ==== নোটিশ ==== */
+    .notice {
+      background: #fce4ec;
+      border: 1px dashed #d11261;
+      padding: 8px 10px;
       border-radius: 8px;
-      margin-top: 12px;
-      border: 1px solid #cbd5e1;
-    }
-    .notif-settings h3 {
-      font-size: 12px;
-      color: #334155;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .notif-row {
-      display: grid;
-      grid-template-columns: auto 1fr 2fr; /* Checkbox, Select, Input */
-      gap: 6px;
-      margin-bottom: 6px;
-      align-items: center;
-    }
-    .notif-row input[type="checkbox"] {
-      width: 14px;
-      height: 14px;
-      cursor: pointer;
-      accent-color: #d11261;
-    }
-    .notif-row select, .notif-row input[type="text"] {
-      padding: 6px;
-      font-size: 11px;
-      border-radius: 4px;
-      border: 1px solid #cbd5e1;
-      width: 100%;
+      margin-bottom: 10px;
+      font-size: 10.5px;
+      color: #a01050;
+      font-weight: 600;
+      line-height: 1.4;
     }
   </style>
 </head>
 <body>
 
 <div class="app-card">
-  <!-- Form Page -->
+  <!-- ================= ইনপুট ফর্ম ================= -->
   <div id="pageInput" class="page">
     <div class="form-header">
-      <h2>বিকাশ জেনারেটর</h2>
+      <h2>বিকাশ সেন্ড মানি জেনারেটর</h2>
       <span class="live-badge" id="liveClock">LIVE</span>
     </div>
 
-    <!-- STATUS BAR SETTINGS -->
     <div class="grid-2">
       <div class="input-group">
-        <label>স্ট্যাটাস সময় (HH:MM)</label>
-        <input type="text" class="input-field" id="statusTimeInput" placeholder="যেমন: 12:26">
+        <label>স্ট্যাটাস সময় (যেমন: 12:49)</label>
+        <input type="text" class="input-field" id="statusTimeInput" placeholder="যেমন: 12:49">
       </div>
       <div class="input-group">
         <label>ব্যাটারি %</label>
-        <input type="number" class="input-field" id="batteryInput" value="98">
+        <input type="number" class="input-field" id="batteryInput" value="77">
       </div>
     </div>
-
     <div class="grid-2">
       <div class="input-group">
-        <label>চার্জার কানেক্টেড?</label>
+        <label>চার্জার?</label>
         <select class="input-field" id="chargingInput">
-          <option value="no">না (নরমাল)</option>
-          <option value="yes">হ্যাঁ (চার্জিং)</option>
+          <option value="no">না</option>
+          <option value="yes">হ্যাঁ</option>
         </select>
       </div>
       <div class="input-group">
-        <label>নেটওয়ার্ক টাইপ</label>
+        <label>নেটওয়ার্ক</label>
         <select class="input-field" id="networkInput">
           <option value="4G">4G / LTE</option>
           <option value="WiFi">WiFi</option>
@@ -372,96 +384,58 @@
       </div>
     </div>
 
-    <!-- TRANSACTION DATA -->
-    <div class="input-group">
-      <label>বর্তমান মোট ব্যালেন্স (৳)</label>
-      <input type="number" step="0.01" class="input-field" id="currentBalanceInput" value="983262.79">
+    <div class="notice">
+      <i class="fas fa-magic"></i> নাম্বার ও ট্রানজেকশন আইডি <strong>অটো জেনারেট</strong> হবে। ইচ্ছেমতো নিজেও বসাতে পারবেন।
     </div>
+
     <div class="input-group">
-      <label>মোবাইল নম্বর (ইচ্ছেমতো লিখুন, খালি রাখলে অটো হবে)</label>
-      <input type="tel" class="input-field" id="phoneInput" value="" placeholder="01XXXXXXXXX">
-    </div>
-    <div class="input-group">
-      <label>ট্রানজেকশন আইডি (অটো জেনারেট হবে)</label>
-      <input type="text" class="input-field" id="txnInput" value="" readonly placeholder="অটো জেনারেট...">
+      <label>মোবাইল নম্বর (প্রাপক)</label>
+      <input type="tel" class="input-field" id="phoneInput" placeholder="খালি রাখলে অটো হবে">
     </div>
     <div class="input-group">
-      <label>পাঠানোর পরিমাণ (৳)</label>
-      <input type="number" class="input-field" id="amountInput" value="7060.00" step="0.01">
+      <label>ট্রানজেকশন আইডি</label>
+      <input type="text" class="input-field" id="txnInput" placeholder="খালি রাখলে অটো হবে">
+    </div>
+    <div class="input-group">
+      <label>বর্তমান ব্যালেন্স (৳) — পাঠানোর আগের</label>
+      <input type="number" class="input-field" id="balanceInput" value="978642.79" step="0.01">
+    </div>
+    <div class="input-group">
+      <label>পরিমাণ (৳)</label>
+      <input type="number" class="input-field" id="amountInput" value="2300.00" step="0.01">
+    </div>
+    <div class="input-group">
+      <label>চার্জ (৳) — ডিফল্ট ১০ টাকা</label>
+      <input type="number" class="input-field" id="chargeInput" value="10.00" step="0.01">
     </div>
 
-    <!-- NOTIFICATION SETTINGS (UPDATED: Individual Toggles) -->
-    <div class="notif-settings">
-      <h3><i class="fas fa-bell"></i> স্ট্যাটাস বার নোটিফিকেশন সেটিংস</h3>
-      
-      <!-- Notification 1 -->
-      <div class="notif-row">
-        <input type="checkbox" id="notif1Toggle" checked>
-        <select id="notif1App">
-          <option value="telegram">Telegram</option>
-          <option value="youtube">YouTube</option>
-          <option value="tiktok">TikTok</option>
-          <option value="whatsapp">WhatsApp</option>
-        </select>
-        <input type="text" id="notif1Text" value="1 new message" placeholder="Notification 1 text">
-      </div>
-
-      <!-- Notification 2 -->
-      <div class="notif-row">
-        <input type="checkbox" id="notif2Toggle" checked>
-        <select id="notif2App">
-          <option value="youtube">YouTube</option>
-          <option value="telegram">Telegram</option>
-          <option value="tiktok">TikTok</option>
-          <option value="whatsapp">WhatsApp</option>
-        </select>
-        <input type="text" id="notif2Text" value="1 new video" placeholder="Notification 2 text">
-      </div>
-
-      <!-- Notification 3 -->
-      <div class="notif-row">
-        <input type="checkbox" id="notif3Toggle" checked>
-        <select id="notif3App">
-          <option value="tiktok">TikTok</option>
-          <option value="youtube">YouTube</option>
-          <option value="telegram">Telegram</option>
-          <option value="whatsapp">WhatsApp</option>
-        </select>
-        <input type="text" id="notif3Text" value="1 new follower" placeholder="Notification 3 text">
-      </div>
-
-    </div>
-
-    <button class="btn-primary" id="generateBtn"><i class="fas fa-camera"></i> স্ক্রিনশট তৈরি করুন</button>
+    <button class="btn-primary" id="generateBtn"><i class="fas fa-camera"></i> স্ক্রিনশট তৈরি</button>
   </div>
 
-  <!-- Screenshot Preview Page -->
+  <!-- ================= জেনারেটেড স্ক্রিনশট ================= -->
   <div id="pageScreenshot" class="page hidden" style="padding:0;">
-    <!-- FULL MOBILE CAPTURE TARGET -->
     <div class="receipt-card" id="screenshotArea">
-      
-      <!-- REST OF THE SCREEN -->
-      <div>
-        <!-- REALISTIC MOBILE STATUS BAR (BLACK) -->
-        <div class="status-bar">
-          <div class="status-left">
-            <span id="dispStatusTime" style="font-weight:400;">12:26</span>
-            <!-- Small Notification Icons in Status Bar -->
-            <div class="status-notif-icons" id="statusNotifIcons">
-              <!-- Icons will be injected here by JS -->
-            </div>
-          </div>
-          <div class="status-right">
-            <div class="net-speed">1.08<br>KB/s</div>
-            <i id="dispNetIcon" class="fas fa-signal" style="font-size:9px;"></i>
-            <span id="dispNetType" style="font-size:9px; font-weight: bold;">4G</span>
-            <span style="font-size:7px; border: 0.5px solid rgba(255,255,255,0.6); padding: 0 1.5px; border-radius: 2px; line-height:1;">VoLTE</span>
-            <span id="dispBattery" style="font-size:10px;">98%</span>
-            <i id="dispBatIcon" class="fas fa-battery-full" style="font-size:11px;"></i>
-          </div>
-        </div>
 
-        <!-- Main Receipt Body -->
+      <!-- ===== কালো স্ট্যাটাস বার ===== -->
+      <div class="status-bar">
+        <div class="status-left">
+          <span class="time-text" id="dispStatusTime">12:49</span>
+          <i class="fas fa-bell"></i>
+          <i class="fab fa-youtube"></i>
+        </div>
+        <div class="status-right">
+          <div class="net-speed">1.08<br>KB/s</div>
+          <i id="dispNetIcon" class="fas fa-signal" style="font-size:9.5px;"></i>
+          <span id="dispNetType" style="font-size:9px; font-weight: 700;">4G</span>
+          <span class="volte-badge">VoLTE</span>
+          <span id="dispBattery" style="font-size:10.5px; font-weight: 500;">77%</span>
+          <i id="dispBatIcon" class="fas fa-battery-three-quarters" style="font-size:12px;"></i>
+        </div>
+      </div>
+
+      <!-- ===== মূল কন্টেন্ট ===== -->
+      <div class="receipt-body">
+
         <div class="top-success">
           <div class="text-title">
             <span>আপনার</span>
@@ -474,8 +448,8 @@
         <div class="user-row">
           <div class="avatar-circle" id="avatarLetter">0</div>
           <div class="phone-details">
-            <div class="num-main" id="displayPhone">01XXXXXXXXX</div>
-            <div class="num-sub" id="displayPhoneSub">01XXXXXXXXX</div>
+            <div class="num-main" id="displayPhone">01785666344</div>
+            <div class="num-sub" id="displayPhoneSub">01785666344</div>
           </div>
           <div class="call-btn"><i class="fas fa-phone-alt"></i> কল</div>
         </div>
@@ -483,25 +457,25 @@
         <div class="grid-2col">
           <div class="grid-item">
             <div class="grid-label">সময়</div>
-            <div class="grid-value" id="displayTime">12:29am 16/09/26</div>
+            <div class="grid-value" id="displayTime">12:49pm 17/09/26</div>
           </div>
           <div class="grid-item">
             <div class="grid-label">ট্রানজেকশন আইডি</div>
             <div class="grid-value">
-              <span id="displayTxn">DHAKK7B5B</span>
+              <span id="displayTxn">652JWO4QR4</span>
               <i class="far fa-copy icon-pink"></i>
             </div>
           </div>
           <div class="grid-item">
             <div class="grid-label">সর্বমোট</div>
-            <div class="grid-value" id="displayAmount">৳7060.00</div>
+            <div class="grid-value" id="displayTotal">৳2310.00</div>
             <div class="charge-note" id="chargeNote">+ চার্জ ৳10.00</div>
           </div>
           <div class="grid-item">
             <div class="grid-label">নতুন ব্যালেন্স</div>
             <div class="grid-value">
-              <span id="displayBalance">৳9,73,462.79</span>
-              <i class="far fa-eye-slash icon-pink" id="toggleBalanceBtn"></i>
+              <span id="displayBalance">৳9,76,332.79</span>
+              <i class="far fa-eye-slash icon-pink"></i>
             </div>
           </div>
           <div class="grid-item span2">
@@ -512,7 +486,7 @@
 
         <div class="mid-actions">
           <div class="mid-btn"><i class="fas fa-sync-alt"></i> অটো পে চালু করুন</div>
-          <div class="mid-btn"><i class="fas fa-share icon-pink" style="transform: rotate(-30deg);"></i> শেয়ার</div>
+          <div class="mid-btn"><i class="fas fa-share" style="transform: rotate(-30deg);"></i> শেয়ার</div>
         </div>
 
         <div class="reward-area">
@@ -521,15 +495,16 @@
           <div class="reward-title">বিকাশ রিওয়ার্ড পয়েন্ট</div>
           <div class="reward-desc">পয়েন্ট ব্যবহার করতে <span class="reward-link">বিকাশ রিওয়ার্ডস</span> চেক করুন!</div>
         </div>
+
+        <div class="bottom-spacer"></div>
       </div>
 
-      <!-- Bottom Layout Section -->
+      <!-- ===== নিচের হোম বার + ইন্ডিকেটর ===== -->
       <div>
         <div class="bottom-home">
           <span>হোম-এ ফিরে যাই</span>
           <i class="fas fa-arrow-right"></i>
         </div>
-
         <div class="nav-bar-indicator">
           <div class="nav-pill"></div>
         </div>
@@ -546,150 +521,119 @@
 
 <script>
   (function() {
-    // --- র‍্যান্ডম ফোন নাম্বার জেনারেটর ---
-    function generateRandomPhone() {
-      const prefixes = ['013', '014', '015', '016', '017', '018', '019'];
-      const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
-      let suffix = '';
-      for (let i = 0; i < 8; i++) {
-        suffix += Math.floor(Math.random() * 10);
-      }
-      return prefix + suffix;
-    }
-
-    // --- র‍্যান্ডম ট্রানজেকশন আইডি জেনারেটর ---
-    function generateRandomTxnId() {
-      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-      let result = '';
-      for (let i = 0; i < 10; i++) {
-        result += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      return result;
-    }
-
-    // --- নোটিফিকেশন আইকন ম্যাপিং ---
-    function getNotifIconClass(appName) {
-      const map = {
-        'telegram': 'fab fa-telegram-plane',
-        'youtube': 'fab fa-youtube',
-        'tiktok': 'fab fa-tiktok',
-        'whatsapp': 'fab fa-whatsapp'
-      };
-      return map[appName] || 'fas fa-bell';
-    }
-
-    // --- এলিমেন্ট সিলেক্টর ---
     const statusTimeInput = document.getElementById('statusTimeInput');
     const batteryInput = document.getElementById('batteryInput');
     const chargingInput = document.getElementById('chargingInput');
     const networkInput = document.getElementById('networkInput');
-    
+    const phoneInput = document.getElementById('phoneInput');
+    const txnInput = document.getElementById('txnInput');
+
     const dispStatusTime = document.getElementById('dispStatusTime');
     const dispBattery = document.getElementById('dispBattery');
     const dispBatIcon = document.getElementById('dispBatIcon');
     const dispNetIcon = document.getElementById('dispNetIcon');
     const dispNetType = document.getElementById('dispNetType');
-    const statusNotifIcons = document.getElementById('statusNotifIcons');
 
-    const toggleBalanceBtn = document.getElementById('toggleBalanceBtn');
-    const displayBalance = document.getElementById('displayBalance');
-    const chargeNote = document.getElementById('chargeNote');
-    const currentBalanceInput = document.getElementById('currentBalanceInput');
-
-    let formattedNewBalance = "9,73,462.79";
-    let isBalanceVisible = true;
-
-    function formatBDKaka(num) {
-      return num.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    // ==== র‍্যান্ডম নাম্বার ====
+    function generateRandomPhone() {
+      const prefixes = ['017', '018', '019', '013', '014', '015', '016'];
+      const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+      let suffix = '';
+      for (let i = 0; i < 8; i++) suffix += Math.floor(Math.random() * 10);
+      return prefix + suffix;
     }
 
-    function getFormattedFullTime() {
+    // ==== র‍্যান্ডম ট্রানজেকশন আইডি ====
+    function generateRandomTxnId() {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let result = '';
+      for (let i = 0; i < 10; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
+      return result;
+    }
+
+    // ==== সংখ্যা ফরম্যাট ====
+    function formatAmount(num) {
+      return parseFloat(num).toLocaleString('en-IN', {
+        minimumFractionDigits: 2, maximumFractionDigits: 2
+      });
+    }
+
+    // ==== সময় ফরম্যাট ====
+    function getCurrentShortTime() {
       const d = new Date();
       let h = d.getHours();
+      let m = String(d.getMinutes()).padStart(2, '0');
+      return `${h % 12 || 12}:${m}`;
+    }
+
+    function getFullTimeString(customTime) {
+      const d = new Date();
+      let h, m;
+      if (customTime && customTime.trim() !== '') {
+        const parts = customTime.trim().split(':');
+        if (parts.length === 2) {
+          h = parseInt(parts[0], 10);
+          m = parseInt(parts[1], 10);
+        }
+      }
+      if (h === undefined) { h = d.getHours(); m = d.getMinutes(); }
       const ampm = h >= 12 ? 'pm' : 'am';
-      h = h % 12 || 12;
-      const hh = String(h).padStart(2, '0');
-      const mm = String(d.getMinutes()).padStart(2, '0');
+      const hh = String(h % 12 || 12).padStart(2, '0');
+      const mm = String(m).padStart(2, '0');
       const day = String(d.getDate()).padStart(2, '0');
-      const month = String(d.getMonth()+1).padStart(2, '0');
+      const month = String(d.getMonth() + 1).padStart(2, '0');
       const year = String(d.getFullYear()).slice(-2);
       return `${hh}:${mm}${ampm} ${day}/${month}/${year}`;
     }
 
-    function updateSystemTime() {
-      document.getElementById('liveClock').textContent = getFormattedFullTime();
+    function updateLiveClock() {
+      if (!statusTimeInput.value.trim()) statusTimeInput.placeholder = getCurrentShortTime();
+      document.getElementById('liveClock').textContent = getFullTimeString();
     }
-    setInterval(updateSystemTime, 1000);
-    updateSystemTime();
+    setInterval(updateLiveClock, 1000);
+    updateLiveClock();
 
-    // চোখের আইকনে ক্লিক করলে ব্যালেন্স হাইড/শো
-    toggleBalanceBtn.addEventListener('click', function() {
-      isBalanceVisible = !isBalanceVisible;
-      if (isBalanceVisible) {
-        displayBalance.textContent = `৳${formattedNewBalance}`;
-        toggleBalanceBtn.className = 'far fa-eye-slash icon-pink';
-      } else {
-        displayBalance.textContent = '৳ * * * * *';
-        toggleBalanceBtn.className = 'far fa-eye icon-pink';
-      }
-    });
-
-    // জেনারেট বাটনে ক্লিক
+    // ==== বাটন ক্লিক ====
     document.getElementById('generateBtn').addEventListener('click', function() {
-      
-      // ১. ম্যানুয়াল অথবা র‍্যান্ডম ফোন নাম্বার
-      const userPhone = document.getElementById('phoneInput').value.trim();
-      let finalPhone;
 
-      if (userPhone.length === 11 && userPhone.startsWith('01')) {
-        finalPhone = userPhone;
-      } else {
+      // ১. নাম্বার
+      let finalPhone = phoneInput.value.trim();
+      if (!finalPhone || finalPhone.length !== 11) {
         finalPhone = generateRandomPhone();
-        document.getElementById('phoneInput').value = finalPhone;
+        phoneInput.value = finalPhone;
       }
 
-      // ২. র‍্যান্ডম ট্রানজেকশন আইডি
-      const randomTxn = generateRandomTxnId();
-      document.getElementById('txnInput').value = randomTxn;
-
-      // ৩. সময়ের সিংক্রোনাইজেশন
-      const now = new Date();
-      let finalHH = now.getHours();
-      let finalMM = now.getMinutes();
-      
-      const manualTime = statusTimeInput.value.trim();
-      if (manualTime && manualTime.includes(':')) {
-        const parts = manualTime.split(':');
-        if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
-          finalHH = parseInt(parts[0], 10);
-          finalMM = parseInt(parts[1], 10);
-        }
+      // ২. ট্রানজেকশন আইডি
+      let finalTxn = txnInput.value.trim();
+      if (!finalTxn) {
+        finalTxn = generateRandomTxnId();
+        txnInput.value = finalTxn;
       }
 
-      const statusH = finalHH % 12 || 12;
-      const statusM = String(finalMM).padStart(2, '0');
-      dispStatusTime.textContent = `${statusH}:${statusM}`;
+      // ৩. সময়
+      const inputTime = statusTimeInput.value.trim();
+      const statusTime = inputTime || getCurrentShortTime();
+      dispStatusTime.textContent = statusTime;
+      document.getElementById('displayTime').textContent = getFullTimeString(inputTime);
 
-      const ampm = finalHH >= 12 ? 'pm' : 'am';
-      const txnH = String(finalHH % 12 || 12).padStart(2, '0');
-      const txnM = String(finalMM).padStart(2, '0');
-      const day = String(now.getDate()).padStart(2, '0');
-      const month = String(now.getMonth() + 1).padStart(2, '0');
-      const year = String(now.getFullYear()).slice(-2);
-      
-      document.getElementById('displayTime').textContent = `${txnH}:${txnM}${ampm} ${day}/${month}/${year}`;
-
-      // ৪. অন্যান্য সেটিংস
-      dispBattery.textContent = `${batteryInput.value || 98}%`;
+      // ৪. ব্যাটারি
+      const bat = batteryInput.value || 77;
+      dispBattery.textContent = bat + '%';
 
       if (chargingInput.value === 'yes') {
         dispBatIcon.className = "fas fa-bolt";
         dispBatIcon.style.color = "#34c759";
       } else {
-        dispBatIcon.className = "fas fa-battery-full";
         dispBatIcon.style.color = "#ffffff";
+        const b = parseInt(bat);
+        if (b >= 90) dispBatIcon.className = "fas fa-battery-full";
+        else if (b >= 60) dispBatIcon.className = "fas fa-battery-three-quarters";
+        else if (b >= 40) dispBatIcon.className = "fas fa-battery-half";
+        else if (b >= 15) dispBatIcon.className = "fas fa-battery-quarter";
+        else dispBatIcon.className = "fas fa-battery-empty";
       }
 
+      // ৫. নেটওয়ার্ক
       if (networkInput.value === 'WiFi') {
         dispNetIcon.className = "fas fa-wifi";
         dispNetType.textContent = "WiFi";
@@ -698,72 +642,44 @@
         dispNetType.textContent = networkInput.value;
       }
 
-      // ৫. ব্যালেন্স ক্যালকুলেশন
-      const currentBalance = parseFloat(currentBalanceInput.value || 0);
-      const sendAmount = parseFloat(document.getElementById('amountInput').value || 0);
-      
-      let charge = 0;
-      if (sendAmount > 100) {
-        charge = 10;
-        chargeNote.textContent = "+ চার্জ ৳10.00";
-      } else {
-        charge = 0;
-        chargeNote.textContent = "+ চার্জ প্রযোজ্য নয়";
-      }
+      // ৬. হিসাব
+      const currentBalance = parseFloat(document.getElementById('balanceInput').value || 0);
+      const amount = parseFloat(document.getElementById('amountInput').value || 0);
+      const charge = parseFloat(document.getElementById('chargeInput').value || 10);
+      const total = amount + charge;
+      const newBalance = currentBalance - total;
 
-      const remainingBalance = currentBalance - (sendAmount + charge);
-      currentBalanceInput.value = remainingBalance.toFixed(2);
-      formattedNewBalance = formatBDKaka(remainingBalance);
-
-      // ৬. ডিসপ্লে আপডেট
+      // ৭. ডিসপ্লে
       document.getElementById('displayPhone').textContent = finalPhone;
       document.getElementById('displayPhoneSub').textContent = finalPhone;
       document.getElementById('avatarLetter').textContent = finalPhone.charAt(0) || '0';
-      document.getElementById('displayTxn').textContent = randomTxn;
-      document.getElementById('displayAmount').textContent = `৳${sendAmount.toFixed(2)}`;
-
-      isBalanceVisible = true;
-      displayBalance.textContent = `৳${formattedNewBalance}`;
-      toggleBalanceBtn.className = 'far fa-eye-slash icon-pink';
-
-      // ৭. স্ট্যাটাস বার নোটিফিকেশন আপডেট (ইন্ডিভিজুয়াল টগল অনুযায়ী)
-      const toggles = ['notif1Toggle', 'notif2Toggle', 'notif3Toggle'];
-      const apps = ['notif1App', 'notif2App', 'notif3App'];
-      let notifIconsHtml = '';
-
-      for (let i = 0; i < 3; i++) {
-        // যদি চেকবক্সে টিক দেওয়া থাকে, শুধু তাহলেই আইকন অ্যাড হবে
-        if (document.getElementById(toggles[i]).checked) {
-          const appVal = document.getElementById(apps[i]).value;
-          const iconClass = getNotifIconClass(appVal);
-          notifIconsHtml += `<i class="${iconClass}"></i>`;
-        }
-      }
-      statusNotifIcons.innerHTML = notifIconsHtml;
+      document.getElementById('displayTxn').textContent = finalTxn;
+      document.getElementById('displayTotal').textContent = '৳' + formatAmount(total);
+      document.getElementById('chargeNote').textContent = '+ চার্জ ৳' + formatAmount(charge);
+      document.getElementById('displayBalance').textContent = '৳' + formatAmount(newBalance);
 
       // ৮. পেজ পরিবর্তন
       document.getElementById('pageInput').classList.add('hidden');
       document.getElementById('pageScreenshot').classList.remove('hidden');
     });
 
-    // ফিরে যাওয়ার বাটন
+    // ==== ফিরে যাওয়া ====
     document.getElementById('backBtn').addEventListener('click', function() {
       document.getElementById('pageScreenshot').classList.add('hidden');
       document.getElementById('pageInput').classList.remove('hidden');
     });
 
-    // ইমেজ ডাউনলোড (Transparent Rounded Corners Support)
+    // ==== ইমেজ ডাউনলোড (চার কোনা গোল + ট্রান্সপারেন্ট) ====
     document.getElementById('downloadImgBtn').addEventListener('click', function() {
       const area = document.getElementById('screenshotArea');
-      
       html2canvas(area, {
         scale: 3,
         useCORS: true,
         logging: false,
-        backgroundColor: null // Transparent background for rounded corners
+        backgroundColor: null
       }).then(canvas => {
         const link = document.createElement('a');
-        link.download = `bKash_Realistic_${Date.now()}.png`;
+        link.download = `bKash_Screenshot_${Date.now()}.png`;
         link.href = canvas.toDataURL('image/png');
         link.click();
       });
