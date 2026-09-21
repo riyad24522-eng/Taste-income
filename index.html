@@ -104,6 +104,45 @@
       margin-top: 0;
     }
 
+    /* ==== নোটিফিকেশন সেটিংস ==== */
+    .notif-settings {
+      background: #f1f5f9;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      border: 1px solid #cbd5e1;
+    }
+    .notif-settings h3 {
+      font-size: 11px;
+      color: #334155;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 700;
+    }
+    .notif-row {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 6px;
+      margin-bottom: 5px;
+      align-items: center;
+    }
+    .notif-row input[type="checkbox"] {
+      width: 14px;
+      height: 14px;
+      cursor: pointer;
+      accent-color: #d11261;
+    }
+    .notif-row select {
+      padding: 5px;
+      font-size: 11px;
+      border-radius: 4px;
+      border: 1px solid #cbd5e1;
+      width: 100%;
+    }
+
     .notice {
       background: #fce4ec;
       border: 1px dashed #d11261;
@@ -130,7 +169,7 @@
       border-radius: 28px;
     }
 
-    /* ==== স্ট্যাটাস বার ==== */
+    /* ==== স্ট্যাটাস বার (আসল ফোনের মতো) ==== */
     .status-bar {
       height: 34px;
       background: #000000;
@@ -200,7 +239,6 @@
     .nav-bar-indicator { height: 18px; background: #f7f8fa; display: flex; justify-content: center; align-items: center; padding-bottom: 5px; border-bottom-left-radius: 28px; border-bottom-right-radius: 28px; }
     .nav-pill { width: 110px; height: 4.5px; background: #222222; border-radius: 4px; }
     
-    /* কন্ট্রোল বার - বাটনগুলো সুন্দরভাবে বসানোর জন্য */
     .ctrl-bar { padding: 12px 16px; background: #ffffff; border-top: 1px solid #cbd5e1; display: flex; gap: 8px; justify-content: space-between; }
     .ctrl-bar .btn-primary { flex: 2; margin-top: 0; }
     .ctrl-bar .btn-secondary { flex: 1; margin-top: 0; }
@@ -450,6 +488,63 @@
         </div>
       </div>
 
+      <!-- ============ নোটিফিকেশন সেটিংস ============ -->
+      <div class="notif-settings">
+        <h3><i class="fas fa-bell"></i> নোটিফিকেশন আইকন (আলাদা আলাদা অন/অফ)</h3>
+
+        <div class="notif-row">
+          <input type="checkbox" id="notif1Toggle" checked>
+          <select id="notif1App">
+            <option value="youtube">YouTube</option>
+            <option value="telegram">Telegram</option>
+            <option value="whatsapp">WhatsApp</option>
+            <option value="tiktok">TikTok</option>
+            <option value="messenger">Messenger</option>
+            <option value="instagram">Instagram</option>
+            <option value="bell">সাধারণ বেল</option>
+          </select>
+        </div>
+
+        <div class="notif-row">
+          <input type="checkbox" id="notif2Toggle" checked>
+          <select id="notif2App">
+            <option value="telegram">Telegram</option>
+            <option value="youtube">YouTube</option>
+            <option value="whatsapp">WhatsApp</option>
+            <option value="tiktok">TikTok</option>
+            <option value="messenger">Messenger</option>
+            <option value="instagram">Instagram</option>
+            <option value="bell">সাধারণ বেল</option>
+          </select>
+        </div>
+
+        <div class="notif-row">
+          <input type="checkbox" id="notif3Toggle" checked>
+          <select id="notif3App">
+            <option value="whatsapp">WhatsApp</option>
+            <option value="youtube">YouTube</option>
+            <option value="telegram">Telegram</option>
+            <option value="tiktok">TikTok</option>
+            <option value="messenger">Messenger</option>
+            <option value="instagram">Instagram</option>
+            <option value="bell">সাধারণ বেল</option>
+          </select>
+        </div>
+
+        <div class="notif-row">
+          <input type="checkbox" id="notif4Toggle">
+          <select id="notif4App">
+            <option value="tiktok">TikTok</option>
+            <option value="youtube">YouTube</option>
+            <option value="telegram">Telegram</option>
+            <option value="whatsapp">WhatsApp</option>
+            <option value="messenger">Messenger</option>
+            <option value="instagram">Instagram</option>
+            <option value="bell">সাধারণ বেল</option>
+          </select>
+        </div>
+      </div>
+
       <div class="input-group">
         <label>মোবাইল নম্বর (প্রাপক)</label>
         <input type="tel" class="input-field" id="phoneInput" placeholder="খালি রাখলে অটো হবে">
@@ -478,7 +573,7 @@
     <div style="background: #fff; border-radius: 12px; padding: 10px; border: 1px solid #e2e8f0;">
       <h3 style="font-size: 13px; color: #d11261; margin-bottom: 8px;"><i class="fas fa-history"></i> লেনদেনসমূহ (ইনবক্স)</h3>
       <div class="notice" style="margin-bottom: 8px;">
-        <i class="fas fa-info-circle"></i> শুধুমাত্র ডাউনলোড করা লেনদেনগুলো অটোমেটিক এখানে সেভ হবে।
+        <i class="fas fa-info-circle"></i> শুধুমাত্র ডাউনলোড করা লেনদেনগুলো অটোমেটিক এখানে সেভ হবে। স্ট্যাটাস বারও একই থাকবে।
       </div>
       <button class="btn-primary" id="generateHistoryBtn" style="background: #1f3348;"><i class="fas fa-list-alt"></i> ইনবক্স দেখুন</button>
     </div>
@@ -579,7 +674,6 @@
       </div>
     </div>
 
-    <!-- শুধু ডাউনলোড বাটন এবং ফিরে যাওয়ার বাটন -->
     <div class="ctrl-bar">
       <button class="btn-primary" id="downloadImgBtn"><i class="fas fa-download"></i> ডাউনলোড করুন</button>
       <button class="btn-primary btn-secondary" id="backBtn"><i class="fas fa-arrow-left"></i> ফিরে</button>
@@ -591,18 +685,19 @@
     <div class="receipt-card" id="historyScreenshotArea">
       <div class="status-bar">
         <div class="status-left">
+          <!-- আইডি যোগ করা হয়েছে সিঙ্ক করার জন্য -->
           <span class="time-text" id="dispStatusTimeHistory">12:13</span>
           <div class="notif-icons" id="notifIconsContainerHistory"></div>
         </div>
         <div class="status-right">
           <div class="net-speed">50.0<br>KB/s</div>
-          <i class="fas fa-signal" style="font-size:9.5px;"></i>
-          <span style="font-size:9px; font-weight: 700;">4G</span>
+          <i id="dispNetIconHistory" class="fas fa-signal" style="font-size:9.5px;"></i>
+          <span id="dispNetTypeHistory" style="font-size:9px; font-weight: 700;">4G</span>
           <span class="volte-badge">VoLTE</span>
           <div class="battery-container">
-            <i class="fas fa-bolt charging-bolt show"></i>
-            <span class="battery-percent">84%</span>
-            <i class="fas fa-battery-three-quarters" style="font-size:12px;"></i>
+            <i class="fas fa-bolt charging-bolt" id="chargingBoltHistory"></i>
+            <span class="battery-percent" id="dispBatteryHistory">84%</span>
+            <i id="dispBatIconHistory" class="fas fa-battery-three-quarters" style="font-size:12px;"></i>
           </div>
         </div>
       </div>
@@ -652,7 +747,6 @@
       </div>
     </div>
 
-    <!-- হিস্ট্রি পেজের বাটন -->
     <div class="ctrl-bar">
       <button class="btn-primary" id="downloadHistoryBtn"><i class="fas fa-download"></i> হিস্ট্রি ডাউনলোড</button>
       <button class="btn-primary btn-danger" id="clearHistoryBtn"><i class="fas fa-trash"></i> ক্লিয়ার</button>
@@ -688,11 +782,27 @@
     // ==== হিস্ট্রি এলিমেন্ট ====
     const dispStatusTimeHistory = document.getElementById('dispStatusTimeHistory');
     const notifIconsContainerHistory = document.getElementById('notifIconsContainerHistory');
+    const dispNetIconHistory = document.getElementById('dispNetIconHistory');
+    const dispNetTypeHistory = document.getElementById('dispNetTypeHistory');
+    const dispBatteryHistory = document.getElementById('dispBatteryHistory');
+    const dispBatIconHistory = document.getElementById('dispBatIconHistory');
+    const chargingBoltHistory = document.getElementById('chargingBoltHistory');
     const historyListContainer = document.getElementById('historyListContainer');
     const inboxBadge = document.getElementById('inboxBadge');
 
-    // ==== ডাটা স্টোর (লোকাল স্টোরেজ থেকে লোড হবে) ====
+    // ==== ডাটা স্টোর ====
     let userTransactionHistory = JSON.parse(localStorage.getItem('bkashHistory')) || [];
+
+    // ==== আইকন ম্যাপিং ====
+    const iconMap = {
+      'youtube': 'fab fa-youtube',
+      'tiktok': 'fab fa-tiktok',
+      'telegram': 'fab fa-telegram-plane',
+      'whatsapp': 'fab fa-whatsapp',
+      'messenger': 'fab fa-facebook-messenger',
+      'instagram': 'fab fa-instagram',
+      'bell': 'fas fa-bell'
+    };
 
     // ==== র‍্যান্ডম ডেটা জেনারেটর ====
     function generateRandomPhone() {
@@ -703,7 +813,6 @@
       return prefix + suffix;
     }
 
-    // রিয়েলিস্টিক বিকাশ ট্রানজেকশন আইডি জেনারেটর (DI + 8 অক্ষর)
     function generateRandomTxnId() {
       const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
       let result = 'DI'; // আসল বিকাশের মতো DI দিয়ে শুরু
@@ -753,9 +862,78 @@
     setInterval(updateLiveClock, 1000);
     updateLiveClock();
 
+    // ========================================================
+    // ==== স্ট্যাটাস বার সিঙ্ক করার মূল ফাংশন ====
+    // ========================================================
+    function syncStatusBars() {
+      // ১. সময়
+      const inputTime = statusTimeInput.value.trim();
+      const statusTime = inputTime || getCurrentShortTime();
+      dispStatusTime.textContent = statusTime;
+      dispStatusTimeHistory.textContent = statusTime;
+      const fullTime = getFullTimeString(inputTime);
+
+      // ২. ব্যাটারি
+      const bat = batteryInput.value || 77;
+      dispBattery.textContent = bat + '%';
+      dispBatteryHistory.textContent = bat + '%';
+
+      const b = parseInt(bat);
+      let batIconClass = "fas fa-battery-three-quarters";
+      if (b >= 90) batIconClass = "fas fa-battery-full";
+      else if (b >= 60) batIconClass = "fas fa-battery-three-quarters";
+      else if (b >= 40) batIconClass = "fas fa-battery-half";
+      else if (b >= 15) batIconClass = "fas fa-battery-quarter";
+      else batIconClass = "fas fa-battery-empty";
+
+      dispBatIcon.className = batIconClass;
+      dispBatIcon.style.color = "#ffffff";
+      dispBatIconHistory.className = batIconClass;
+      dispBatIconHistory.style.color = "#ffffff";
+
+      // ৩. চার্জার
+      if (chargingInput.value === 'yes') {
+        chargingBolt.classList.add('show');
+        chargingBoltHistory.classList.add('show');
+      } else {
+        chargingBolt.classList.remove('show');
+        chargingBoltHistory.classList.remove('show');
+      }
+
+      // ৪. নেটওয়ার্ক
+      if (networkInput.value === 'WiFi') {
+        dispNetIcon.className = "fas fa-wifi";
+        dispNetType.textContent = "WiFi";
+        dispNetIconHistory.className = "fas fa-wifi";
+        dispNetTypeHistory.textContent = "WiFi";
+      } else {
+        dispNetIcon.className = "fas fa-signal";
+        dispNetType.textContent = networkInput.value;
+        dispNetIconHistory.className = "fas fa-signal";
+        dispNetTypeHistory.textContent = networkInput.value;
+      }
+
+      // ৫. নোটিফিকেশন আইকন
+      const toggles = ['notif1Toggle', 'notif2Toggle', 'notif3Toggle', 'notif4Toggle'];
+      const apps = ['notif1App', 'notif2App', 'notif3App', 'notif4App'];
+      let notifHtml = '';
+      for (let i = 0; i < 4; i++) {
+        const toggle = document.getElementById(toggles[i]);
+        const appSelect = document.getElementById(apps[i]);
+        if (toggle && toggle.checked && appSelect) {
+          const appVal = appSelect.value;
+          const iconClass = iconMap[appVal] || 'fas fa-bell';
+          notifHtml += `<i class="${iconClass}"></i>`;
+        }
+      }
+      notifIconsContainer.innerHTML = notifHtml;
+      notifIconsContainerHistory.innerHTML = notifHtml;
+
+      return fullTime; // সেন্ড মানি পেজের জন্য রিটার্ন করা
+    }
+
     // ==== ইনবক্স রেন্ডার করা ====
     function renderHistory() {
-      // ইনবক্স ব্যাজ আপডেট
       inboxBadge.textContent = userTransactionHistory.length;
       inboxBadge.style.display = userTransactionHistory.length > 0 ? 'flex' : 'none';
 
@@ -770,7 +948,6 @@
           </div>
         `;
       } else {
-        // নতুন লেনদেন সবার উপরে দেখানো
         userTransactionHistory.forEach(item => {
           let iconHtml = '';
           let amountClass = 'negative';
@@ -778,7 +955,6 @@
 
           const colors = ['#fbc02d', '#f57c00', '#8084be', '#f48fb1', '#81c784', '#64b5f6'];
           const randomColor = colors[Math.floor(Math.random() * colors.length)];
-          // নাম্বারের প্রথম অক্ষর দিয়ে অ্যাভাটার
           iconHtml = `<div class="history-icon" style="background: ${randomColor}; color: #fff; font-weight: 600; font-size: 14px;">${item.number.charAt(0)}</div>`;
 
           html += `
@@ -802,10 +978,9 @@
       historyListContainer.innerHTML = html;
     }
 
-    // পেজ লোড হওয়ার সময় ইনবক্স রেন্ডার করা
     renderHistory();
 
-    // ==== টোস্ট নোটিফিকেশন দেখানো ====
+    // ==== টোস্ট নোটিফিকেশন ====
     function showToast(message) {
       const toast = document.getElementById('toast');
       document.getElementById('toastMsg').textContent = message;
@@ -815,16 +990,14 @@
       }, 2500);
     }
 
-    // ==== ডাউনলোড হওয়া লেনদেন ইনবক্সে সেভ করা ====
+    // ==== লেনদেন সেভ করা ====
     function saveCurrentTxToHistory() {
-      // সরাসরি DOM থেকে ডাটা নেওয়া হচ্ছে, যাতে স্ক্রিনে যা দেখা যাচ্ছে ঠিক সেটাই সেভ হয়
       const phone = document.getElementById('displayPhone').textContent;
       const txn = document.getElementById('displayTxn').textContent;
       const amountText = document.getElementById('displayTotal').textContent.replace('৳', '').replace(/,/g, '');
       const amount = parseFloat(amountText);
       const time = document.getElementById('displayTime').textContent;
 
-      // ডুপ্লিকেট চেক করা (একই TrxID যেন দুইবার সেভ না হয়)
       const exists = userTransactionHistory.find(t => t.txn === txn);
       if (exists) {
         showToast('এই লেনদেনটি আগেই সেভ করা হয়েছে!');
@@ -840,14 +1013,14 @@
         txn: txn
       };
 
-      userTransactionHistory.unshift(newTx); // সবার উপরে যোগ হবে
-      localStorage.setItem('bkashHistory', JSON.stringify(userTransactionHistory)); // লোকাল স্টোরেজে সেভ
+      userTransactionHistory.unshift(newTx);
+      localStorage.setItem('bkashHistory', JSON.stringify(userTransactionHistory));
       
       showToast('লেনদেন সফলভাবে ইনবক্সে সেভ হয়েছে!');
-      renderHistory(); // ইনবক্স আপডেট
+      renderHistory();
     }
 
-    // ==== ইমেজ ডাউনলোড হেল্পার ====
+    // ==== ইমেজ ডাউনলোড ====
     function triggerDownload(elementId, filenamePrefix) {
       return new Promise((resolve) => {
         const area = document.getElementById(elementId);
@@ -858,12 +1031,12 @@
           link.download = `Screenshot_${filenamePrefix}_${Date.now()}.png`;
           link.href = canvas.toDataURL('image/png');
           link.click();
-          setTimeout(() => resolve(true), 800); // ডাউনলোড ট্রিগার হওয়ার পর একটু অপেক্ষা
+          setTimeout(() => resolve(true), 800);
         }).catch(() => resolve(false));
       });
     }
 
-    // ==== বাটন ক্লিক: সেন্ড মানি (শুধু স্ক্রিনে দেখাবে, সেভ হবে না) ====
+    // ==== বাটন ক্লিক: সেন্ড মানি ====
     document.getElementById('generateBtn').addEventListener('click', function() {
       let finalPhone = phoneInput.value.trim();
       if (!finalPhone || finalPhone.length !== 11) {
@@ -875,34 +1048,9 @@
         finalTxn = generateRandomTxnId();
         txnInput.value = finalTxn;
       }
-      const inputTime = statusTimeInput.value.trim();
-      const statusTime = inputTime || getCurrentShortTime();
-      dispStatusTime.textContent = statusTime;
-      document.getElementById('displayTime').textContent = getFullTimeString(inputTime);
 
-      const bat = batteryInput.value || 77;
-      dispBattery.textContent = bat + '%';
-      if (chargingInput.value === 'yes') chargingBolt.classList.add('show');
-      else chargingBolt.classList.remove('show');
-
-      const b = parseInt(bat);
-      dispBatIcon.style.color = "#ffffff";
-      if (b >= 90) dispBatIcon.className = "fas fa-battery-full";
-      else if (b >= 60) dispBatIcon.className = "fas fa-battery-three-quarters";
-      else if (b >= 40) dispBatIcon.className = "fas fa-battery-half";
-      else if (b >= 15) dispBatIcon.className = "fas fa-battery-quarter";
-      else dispBatIcon.className = "fas fa-battery-empty";
-
-      if (networkInput.value === 'WiFi') {
-        dispNetIcon.className = "fas fa-wifi";
-        dispNetType.textContent = "WiFi";
-      } else {
-        dispNetIcon.className = "fas fa-signal";
-        dispNetType.textContent = networkInput.value;
-      }
-
-      // নোটিফিকেশন আইকন লোড করা (যদি সেট করা থাকে)
-      notifIconsContainer.innerHTML = '<i class="fab fa-youtube"></i><i class="fab fa-telegram-plane"></i><i class="fab fa-whatsapp"></i>';
+      // স্ট্যাটাস বার সিঙ্ক করা এবং সময় বের করা
+      const fullTime = syncStatusBars();
 
       const currentBalance = parseFloat(document.getElementById('balanceInput').value || 0);
       const amount = parseFloat(document.getElementById('amountInput').value || 0);
@@ -917,18 +1065,17 @@
       document.getElementById('displayTotal').textContent = '৳' + formatAmount(total);
       document.getElementById('chargeNote').textContent = '+ চার্জ ৳' + formatAmount(charge);
       document.getElementById('displayBalance').textContent = '৳' + formatAmount(newBalance);
+      document.getElementById('displayTime').textContent = fullTime;
 
       document.getElementById('pageInput').classList.add('hidden');
       document.getElementById('pageScreenshot').classList.remove('hidden');
     });
 
-    // ==== বাটন ক্লিক: ইনবক্স দেখা ====
+    // ==== বাটন ক্লিক: ইনবক্স ====
     document.getElementById('generateHistoryBtn').addEventListener('click', function() {
-      dispStatusTimeHistory.textContent = getCurrentShortTime();
-      notifIconsContainerHistory.innerHTML = '<i class="fab fa-youtube"></i><i class="fab fa-telegram-plane"></i><i class="fab fa-whatsapp"></i>';
-      
-      renderHistory(); // লেটেস্ট ডাটা রেন্ডার করা
-
+      // ইনবক্স ওপেন করার সময়ও স্ট্যাটাস বার সিঙ্ক করা
+      syncStatusBars();
+      renderHistory();
       document.getElementById('pageInput').classList.add('hidden');
       document.getElementById('pageHistoryScreenshot').classList.remove('hidden');
     });
@@ -944,26 +1091,24 @@
       document.getElementById('pageInput').classList.remove('hidden');
     });
 
-    // ==== ডাউনলোড বাটন ইভেন্ট (এখানেই সেভ হবে) ====
+    // ==== ডাউনলোড বাটন ====
     document.getElementById('downloadImgBtn').addEventListener('click', async function() {
-      // ১. ডাউনলোড করা
       await triggerDownload('screenshotArea', 'bKash_SendMoney');
-      // ২. ডাউনলোড সফল হওয়ার পর ইনবক্সে সেভ করা
       saveCurrentTxToHistory();
     });
 
-    // ==== হিস্ট্রি ডাউনলোড বাটন ====
+    // ==== হিস্ট্রি ডাউনলোড ====
     document.getElementById('downloadHistoryBtn').addEventListener('click', function() {
       triggerDownload('historyScreenshotArea', 'bKash_History');
     });
 
-    // ==== ইনবক্স ক্লিয়ার বাটন ====
+    // ==== ইনবক্স ক্লিয়ার ====
     document.getElementById('clearHistoryBtn').addEventListener('click', function() {
       if (confirm('আপনি কি নিশ্চিত যে আপনি সব লেনদেন মুছে ফেলতে চান?')) {
         userTransactionHistory = [];
-        localStorage.removeItem('bkashHistory'); // লোকাল স্টোরেজ থেকেও মুছে ফেলা
+        localStorage.removeItem('bkashHistory');
         showToast('সব লেনদেন মুছে ফেলা হয়েছে!');
-        renderHistory(); // ইনবক্স রিফ্রেশ করা
+        renderHistory();
       }
     });
 
