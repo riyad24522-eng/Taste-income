@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>bKash Send Money Screenshot Generator</title>
+  <title>bKash Screenshot Generator</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
@@ -30,10 +30,12 @@
       box-shadow: 0 20px 40px rgba(0,0,0,0.5);
       overflow: hidden;
       border: 1px solid #334155;
+      position: relative;
     }
     .page { padding: 16px; }
     .page.hidden { display: none; }
 
+    /* ==== ফর্ম স্টাইল ==== */
     .form-header {
       display: flex;
       justify-content: space-between;
@@ -80,7 +82,7 @@
       border-radius: 30px;
       color: white;
       font-weight: 700;
-      font-size: 14px;
+      font-size: 13px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -96,48 +98,26 @@
       border: 1px solid #cbd5e1;
       margin-top: 0;
     }
+    .btn-danger {
+      background: #dc2626;
+      color: white;
+      margin-top: 0;
+    }
 
-    /* ==== নোটিফিকেশন সেটিংস ==== */
-    .notif-settings {
-      background: #f1f5f9;
-      padding: 10px;
+    .notice {
+      background: #fce4ec;
+      border: 1px dashed #d11261;
+      padding: 8px 10px;
       border-radius: 8px;
-      margin-top: 8px;
-      margin-bottom: 8px;
-      border: 1px solid #cbd5e1;
-    }
-    .notif-settings h3 {
-      font-size: 11px;
-      color: #334155;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-weight: 700;
-    }
-    .notif-row {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 6px;
-      margin-bottom: 5px;
-      align-items: center;
-    }
-    .notif-row input[type="checkbox"] {
-      width: 14px;
-      height: 14px;
-      cursor: pointer;
-      accent-color: #d11261;
-    }
-    .notif-row select {
-      padding: 5px;
-      font-size: 11px;
-      border-radius: 4px;
-      border: 1px solid #cbd5e1;
-      width: 100%;
+      margin-bottom: 10px;
+      font-size: 10.5px;
+      color: #a01050;
+      font-weight: 600;
+      line-height: 1.4;
     }
 
     /* ===================================================
-       ==== ফুল স্ক্রিন বক্স (ফোনের পুরো স্ক্রিন জুড়ে) ====
+       ==== স্ক্রিনশট এরিয়া ====
        =================================================== */
     .receipt-card {
       background: #f7f8fa;
@@ -150,9 +130,7 @@
       border-radius: 28px;
     }
 
-    /* ============================================
-       ==== আসল অ্যান্ড্রয়েড স্ট্যাটাস বার (কালো) ====
-       ============================================ */
+    /* ==== স্ট্যাটাস বার ==== */
     .status-bar {
       height: 34px;
       background: #000000;
@@ -168,27 +146,10 @@
       position: relative;
       z-index: 5;
     }
-    .status-left {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .status-left .time-text {
-      font-weight: 600;
-      letter-spacing: 0.2px;
-      font-size: 12.5px;
-    }
-    /* নোটিফিকেশন আইকনগুলো */
-    .notif-icons {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-      margin-left: 4px;
-    }
-    .notif-icons i {
-      font-size: 11px;
-      opacity: 0.95;
-    }
+    .status-left { display: flex; align-items: center; gap: 6px; }
+    .status-left .time-text { font-weight: 600; letter-spacing: 0.2px; font-size: 12.5px; }
+    .notif-icons { display: flex; gap: 6px; align-items: center; margin-left: 4px; }
+    .notif-icons i { font-size: 11px; opacity: 0.95; }
     .notif-icons .fa-youtube { color: #ff0000; }
     .notif-icons .fa-tiktok { color: #ffffff; }
     .notif-icons .fa-telegram-plane { color: #29b6f6; }
@@ -197,231 +158,253 @@
     .notif-icons .fa-facebook-messenger { color: #0084ff; }
     .notif-icons .fa-instagram { color: #e1306c; }
 
-    .status-right {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 10.5px;
-    }
-    .net-speed {
-      font-size: 7.5px;
-      line-height: 1.15;
-      text-align: right;
-      font-weight: 500;
-      opacity: 0.95;
-      letter-spacing: 0.2px;
-      margin-right: 2px;
-    }
-    .volte-badge {
-      font-size: 6.5px;
-      border: 0.8px solid #ffffff;
-      padding: 0 2px;
-      border-radius: 2px;
-      line-height: 1.2;
-      font-weight: 700;
-      letter-spacing: 0.2px;
-    }
-    .battery-percent {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.3px;
-    }
-    .battery-container {
-      display: flex;
-      align-items: center;
-      gap: 2px;
-      position: relative;
-    }
-    .charging-bolt {
-      font-size: 12px;
-      color: #34c759;
-      display: none;
-      filter: drop-shadow(0 0 2px rgba(52, 199, 89, 0.6));
-    }
-    .charging-bolt.show {
-      display: inline-block;
-    }
+    .status-right { display: flex; align-items: center; gap: 5px; font-size: 10.5px; }
+    .net-speed { font-size: 7.5px; line-height: 1.15; text-align: right; font-weight: 500; opacity: 0.95; margin-right: 2px; }
+    .volte-badge { font-size: 6.5px; border: 0.8px solid #ffffff; padding: 0 2px; border-radius: 2px; line-height: 1.2; font-weight: 700; }
+    .battery-percent { font-size: 11px; font-weight: 500; }
+    .battery-container { display: flex; align-items: center; gap: 2px; }
+    .charging-bolt { font-size: 12px; color: #34c759; display: none; }
+    .charging-bolt.show { display: inline-block; }
 
-    /* ==== মূল কন্টেন্ট ==== */
-    .receipt-body {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      padding: 22px 16px 0px;
-    }
-
-    .top-success {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 18px;
-    }
-    .top-success .text-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: #1a1a1a;
-      display: flex;
-      gap: 4px;
-    }
+    /* ==== সেন্ড মানি রিসিট ==== */
+    .receipt-body { flex: 1; display: flex; flex-direction: column; padding: 22px 16px 0px; }
+    .top-success { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    .top-success .text-title { font-size: 15px; font-weight: 700; color: #1a1a1a; display: flex; gap: 4px; }
     .top-success .text-pink { color: #d11261; }
     .top-success .text-green { color: #007a48; }
-    .top-success .check-circle {
-      width: 24px;
-      height: 24px;
-      border: 1.8px solid #007a48;
-      border-radius: 50%;
-      color: #007a48;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-    }
-
-    .user-row {
-      display: flex;
-      align-items: center;
-      padding-bottom: 18px;
-    }
-    .avatar-circle {
-      width: 46px;
-      height: 46px;
-      background: #8084be;
-      color: #fff;
-      font-weight: 500;
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
+    .top-success .check-circle { width: 24px; height: 24px; border: 1.8px solid #007a48; border-radius: 50%; color: #007a48; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+    .user-row { display: flex; align-items: center; padding-bottom: 18px; }
+    .avatar-circle { width: 46px; height: 46px; background: #8084be; color: #fff; font-weight: 500; font-size: 18px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0; }
     .phone-details { flex: 1; margin-left: 12px; }
     .phone-details .num-main { font-size: 14px; font-weight: 600; color: #1a1a1a; }
     .phone-details .num-sub { font-size: 12.5px; font-weight: 500; color: #555555; margin-top: 2px; }
-    .call-btn {
-      border: 1.2px solid #d11261;
-      background: transparent;
-      color: #d11261;
-      padding: 6px 14px;
-      border-radius: 8px;
-      font-size: 11.5px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .grid-2col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border-top: 1px solid #eaeaea;
-      margin: 0 -16px;
-    }
-    .grid-item {
-      padding: 14px 16px;
-      border-bottom: 1px solid #eaeaea;
-      border-right: 1px solid #eaeaea;
-      background: #f7f8fa;
-    }
+    .call-btn { border: 1.2px solid #d11261; background: transparent; color: #d11261; padding: 6px 14px; border-radius: 8px; font-size: 11.5px; font-weight: 600; display: flex; align-items: center; gap: 5px; }
+    .grid-2col { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid #eaeaea; margin: 0 -16px; }
+    .grid-item { padding: 14px 16px; border-bottom: 1px solid #eaeaea; border-right: 1px solid #eaeaea; background: #f7f8fa; }
     .grid-item:nth-child(2n) { border-right: none; }
     .grid-item.span2 { grid-column: span 2; border-right: none; }
     .grid-label { font-size: 10.5px; font-weight: 500; color: #666666; margin-bottom: 4px; }
     .grid-value { font-size: 13.5px; font-weight: 600; color: #1a1a1a; display: flex; align-items: center; gap: 5px; }
     .charge-note { font-size: 10.5px; font-weight: 400; color: #777777; margin-top: 3px; }
     .icon-pink { color: #d11261; font-size: 12px; cursor: pointer; padding: 2px; }
-
-    .mid-actions {
-      display: flex;
-      gap: 10px;
-      padding: 18px 0 0;
-    }
-    .mid-btn {
-      flex: 1;
-      border: 1.2px solid #d11261;
-      background: #f7f8fa;
-      color: #d11261;
-      padding: 10px 0;
-      border-radius: 10px;
-      font-size: 12.5px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-
-    .reward-area {
-      text-align: center;
-      padding: 22px 0 0;
-    }
-    .star-circle {
-      width: 36px;
-      height: 36px;
-      background: #d11261;
-      color: #fff;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 8px;
-      font-size: 16px;
-    }
+    .mid-actions { display: flex; gap: 10px; padding: 18px 0 0; }
+    .mid-btn { flex: 1; border: 1.2px solid #d11261; background: #f7f8fa; color: #d11261; padding: 10px 0; border-radius: 10px; font-size: 12.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .reward-area { text-align: center; padding: 22px 0 0; }
+    .star-circle { width: 36px; height: 36px; background: #d11261; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-size: 16px; }
     .reward-sub { font-size: 11.5px; color: #555555; }
     .reward-title { font-size: 14.5px; font-weight: 700; color: #1a1a1a; margin: 3px 0; }
     .reward-desc { font-size: 11.5px; color: #555555; }
     .reward-link { color: #d11261; font-weight: 700; text-decoration: underline; }
-
     .bottom-spacer { flex: 1; }
-
-    .bottom-home {
-      background: #d11261;
-      color: #fff;
-      padding: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-weight: 700;
-      font-size: 14px;
-    }
-
-    .nav-bar-indicator {
-      height: 18px;
-      background: #f7f8fa;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding-bottom: 5px;
-      border-bottom-left-radius: 28px;
-      border-bottom-right-radius: 28px;
-    }
-    .nav-pill {
-      width: 110px;
-      height: 4.5px;
-      background: #222222;
-      border-radius: 4px;
-    }
-
-    .ctrl-bar {
-      padding: 12px 16px;
-      background: #ffffff;
-      border-top: 1px solid #cbd5e1;
-      display: flex;
-      gap: 8px;
-    }
+    .bottom-home { background: #d11261; color: #fff; padding: 16px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 14px; }
+    .nav-bar-indicator { height: 18px; background: #f7f8fa; display: flex; justify-content: center; align-items: center; padding-bottom: 5px; border-bottom-left-radius: 28px; border-bottom-right-radius: 28px; }
+    .nav-pill { width: 110px; height: 4.5px; background: #222222; border-radius: 4px; }
+    
+    /* কন্ট্রোল বার - বাটনগুলো সুন্দরভাবে বসানোর জন্য */
+    .ctrl-bar { padding: 12px 16px; background: #ffffff; border-top: 1px solid #cbd5e1; display: flex; gap: 8px; justify-content: space-between; }
     .ctrl-bar .btn-primary { flex: 2; margin-top: 0; }
     .ctrl-bar .btn-secondary { flex: 1; margin-top: 0; }
 
-    /* ==== নোটিশ ==== */
-    .notice {
-      background: #fce4ec;
-      border: 1px dashed #d11261;
-      padding: 8px 10px;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      font-size: 10.5px;
-      color: #a01050;
+    /* ===================================================
+       ==== ট্রানজেকশন হিস্ট্রি স্টাইল ====
+       =================================================== */
+    .history-header {
+      background: #d11261;
+      color: #fff;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .history-tabs {
+      display: flex;
+      background: #fff;
+      border-bottom: 1px solid #eaeaea;
+    }
+    .history-tab {
+      flex: 1;
+      text-align: center;
+      padding: 14px 0;
+      font-size: 14px;
       font-weight: 600;
-      line-height: 1.4;
+      color: #666;
+      position: relative;
+      cursor: pointer;
+    }
+    .history-tab.active { color: #d11261; }
+    .history-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: #d11261;
+    }
+    .badge {
+      background: #d11261;
+      color: #fff;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      margin-left: 4px;
+    }
+    .history-search-bar {
+      display: flex;
+      gap: 8px;
+      padding: 12px 16px;
+      background: #fff;
+      border-bottom: 1px solid #eaeaea;
+    }
+    .search-box {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 0 10px;
+    }
+    .search-box i { color: #94a3b8; font-size: 12px; }
+    .search-box input {
+      border: none;
+      background: transparent;
+      padding: 8px;
+      font-size: 12px;
+      outline: none;
+      width: 100%;
+    }
+    .filter-btn {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 0 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #d11261;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .list-title {
+      padding: 12px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #64748b;
+      background: #f7f8fa;
+    }
+    .history-list {
+      flex: 1;
+      overflow-y: auto;
+      background: #f7f8fa;
+      padding-bottom: 20px;
+    }
+    .history-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      background: #fff;
+      border-bottom: 1px solid #f1f1f1;
+    }
+    .history-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      margin-right: 12px;
+    }
+    .history-info { flex: 1; }
+    .history-title { font-size: 13px; font-weight: 600; color: #1a1a1a; }
+    .history-number { font-size: 11.5px; color: #555; margin-top: 2px; }
+    .history-trx { font-size: 11px; color: #888; margin-top: 2px; }
+    .history-right { text-align: right; }
+    .history-amount { font-size: 13.5px; font-weight: 700; }
+    .history-amount.positive { color: #007a48; }
+    .history-amount.negative { color: #d11261; }
+    .history-time { font-size: 10.5px; color: #888; margin-top: 2px; }
+    .history-arrow { font-size: 10px; color: #ccc; margin-left: 6px; }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: #94a3b8;
+      font-size: 13px;
+    }
+    .empty-state i {
+      font-size: 40px;
+      margin-bottom: 10px;
+      color: #cbd5e1;
+    }
+
+    .bottom-nav {
+      display: flex;
+      background: #fff;
+      border-top: 1px solid #eaeaea;
+      padding: 8px 0;
+      justify-content: space-around;
+      align-items: center;
+      border-bottom-left-radius: 28px;
+      border-bottom-right-radius: 28px;
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 10px;
+      color: #94a3b8;
+      cursor: pointer;
+      gap: 3px;
+    }
+    .nav-item.active { color: #d11261; }
+    .nav-item i { font-size: 18px; }
+    .nav-item .inbox-badge {
+      position: absolute;
+      top: -5px;
+      right: -8px;
+      background: #d11261;
+      color: #fff;
+      font-size: 8px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+    .nav-icon-wrap { position: relative; }
+
+    /* ==== টোস্ট নোটিফিকেশন ==== */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #007a48;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
     }
   </style>
 </head>
@@ -431,141 +414,89 @@
   <!-- ================= ইনপুট ফর্ম ================= -->
   <div id="pageInput" class="page">
     <div class="form-header">
-      <h2>বিকাশ সেন্ড মানি জেনারেটর</h2>
+      <h2>bKash স্ক্রিনশট জেনারেটর</h2>
       <span class="live-badge" id="liveClock">LIVE</span>
     </div>
 
-    <div class="grid-2">
+    <!-- ===== সেন্ড মানি সেকশন ===== -->
+    <div style="background: #fff; border-radius: 12px; padding: 10px; margin-bottom: 12px; border: 1px solid #e2e8f0;">
+      <h3 style="font-size: 13px; color: #d11261; margin-bottom: 8px;"><i class="fas fa-paper-plane"></i> সেন্ড মানি রিসিট</h3>
+      
+      <div class="grid-2">
+        <div class="input-group">
+          <label>স্ট্যাটাস সময়</label>
+          <input type="text" class="input-field" id="statusTimeInput" placeholder="যেমন: 12:49">
+        </div>
+        <div class="input-group">
+          <label>ব্যাটারি %</label>
+          <input type="number" class="input-field" id="batteryInput" value="77">
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="input-group">
+          <label>চার্জার?</label>
+          <select class="input-field" id="chargingInput">
+            <option value="no">না</option>
+            <option value="yes">হ্যাঁ</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>নেটওয়ার্ক</label>
+          <select class="input-field" id="networkInput">
+            <option value="4G">4G / LTE</option>
+            <option value="WiFi">WiFi</option>
+            <option value="5G">5G</option>
+          </select>
+        </div>
+      </div>
+
       <div class="input-group">
-        <label>স্ট্যাটাস সময় (যেমন: 12:49)</label>
-        <input type="text" class="input-field" id="statusTimeInput" placeholder="যেমন: 12:49">
+        <label>মোবাইল নম্বর (প্রাপক)</label>
+        <input type="tel" class="input-field" id="phoneInput" placeholder="খালি রাখলে অটো হবে">
       </div>
       <div class="input-group">
-        <label>ব্যাটারি %</label>
-        <input type="number" class="input-field" id="batteryInput" value="77">
-      </div>
-    </div>
-    <div class="grid-2">
-      <div class="input-group">
-        <label>চার্জার?</label>
-        <select class="input-field" id="chargingInput">
-          <option value="no">না</option>
-          <option value="yes">হ্যাঁ</option>
-        </select>
+        <label>ট্রানজেকশন আইডি (খালি রাখলে রিয়েলিস্টিক অটো হবে)</label>
+        <input type="text" class="input-field" id="txnInput" placeholder="খালি রাখলে অটো হবে">
       </div>
       <div class="input-group">
-        <label>নেটওয়ার্ক</label>
-        <select class="input-field" id="networkInput">
-          <option value="4G">4G / LTE</option>
-          <option value="WiFi">WiFi</option>
-          <option value="5G">5G</option>
-        </select>
+        <label>বর্তমান ব্যালেন্স (৳) — পাঠানোর আগের</label>
+        <input type="number" class="input-field" id="balanceInput" value="978642.79" step="0.01">
       </div>
-    </div>
-
-    <!-- ============ নোটিফিকেশন সেটিংস ============ -->
-    <div class="notif-settings">
-      <h3><i class="fas fa-bell"></i> নোটিফিকেশন আইকন (আলাদা আলাদা অন/অফ)</h3>
-
-      <div class="notif-row">
-        <input type="checkbox" id="notif1Toggle" checked>
-        <select id="notif1App">
-          <option value="youtube">YouTube</option>
-          <option value="telegram">Telegram</option>
-          <option value="whatsapp">WhatsApp</option>
-          <option value="tiktok">TikTok</option>
-          <option value="messenger">Messenger</option>
-          <option value="instagram">Instagram</option>
-          <option value="bell">সাধারণ বেল</option>
-        </select>
+      <div class="input-group">
+        <label>পরিমাণ (৳)</label>
+        <input type="number" class="input-field" id="amountInput" value="2300.00" step="0.01">
+      </div>
+      <div class="input-group">
+        <label>চার্জ (৳) — ডিফল্ট ১০ টাকা</label>
+        <input type="number" class="input-field" id="chargeInput" value="10.00" step="0.01">
       </div>
 
-      <div class="notif-row">
-        <input type="checkbox" id="notif2Toggle" checked>
-        <select id="notif2App">
-          <option value="telegram">Telegram</option>
-          <option value="youtube">YouTube</option>
-          <option value="whatsapp">WhatsApp</option>
-          <option value="tiktok">TikTok</option>
-          <option value="messenger">Messenger</option>
-          <option value="instagram">Instagram</option>
-          <option value="bell">সাধারণ বেল</option>
-        </select>
+      <button class="btn-primary" id="generateBtn"><i class="fas fa-camera"></i> সেন্ড মানি স্ক্রিনশট</button>
+    </div>
+
+    <!-- ===== ইনবক্স সেকশন ===== -->
+    <div style="background: #fff; border-radius: 12px; padding: 10px; border: 1px solid #e2e8f0;">
+      <h3 style="font-size: 13px; color: #d11261; margin-bottom: 8px;"><i class="fas fa-history"></i> লেনদেনসমূহ (ইনবক্স)</h3>
+      <div class="notice" style="margin-bottom: 8px;">
+        <i class="fas fa-info-circle"></i> শুধুমাত্র ডাউনলোড করা লেনদেনগুলো অটোমেটিক এখানে সেভ হবে।
       </div>
-
-      <div class="notif-row">
-        <input type="checkbox" id="notif3Toggle" checked>
-        <select id="notif3App">
-          <option value="whatsapp">WhatsApp</option>
-          <option value="youtube">YouTube</option>
-          <option value="telegram">Telegram</option>
-          <option value="tiktok">TikTok</option>
-          <option value="messenger">Messenger</option>
-          <option value="instagram">Instagram</option>
-          <option value="bell">সাধারণ বেল</option>
-        </select>
-      </div>
-
-      <div class="notif-row">
-        <input type="checkbox" id="notif4Toggle">
-        <select id="notif4App">
-          <option value="tiktok">TikTok</option>
-          <option value="youtube">YouTube</option>
-          <option value="telegram">Telegram</option>
-          <option value="whatsapp">WhatsApp</option>
-          <option value="messenger">Messenger</option>
-          <option value="instagram">Instagram</option>
-          <option value="bell">সাধারণ বেল</option>
-        </select>
-      </div>
+      <button class="btn-primary" id="generateHistoryBtn" style="background: #1f3348;"><i class="fas fa-list-alt"></i> ইনবক্স দেখুন</button>
     </div>
-
-    <div class="notice">
-      <i class="fas fa-magic"></i> নাম্বার ও ট্রানজেকশন আইডি <strong>অটো জেনারেট</strong> হবে। ইচ্ছেমতো নিজেও বসাতে পারবেন।
-    </div>
-
-    <div class="input-group">
-      <label>মোবাইল নম্বর (প্রাপক)</label>
-      <input type="tel" class="input-field" id="phoneInput" placeholder="খালি রাখলে অটো হবে">
-    </div>
-    <div class="input-group">
-      <label>ট্রানজেকশন আইডি</label>
-      <input type="text" class="input-field" id="txnInput" placeholder="খালি রাখলে অটো হবে">
-    </div>
-    <div class="input-group">
-      <label>বর্তমান ব্যালেন্স (৳) — পাঠানোর আগের</label>
-      <input type="number" class="input-field" id="balanceInput" value="978642.79" step="0.01">
-    </div>
-    <div class="input-group">
-      <label>পরিমাণ (৳)</label>
-      <input type="number" class="input-field" id="amountInput" value="2300.00" step="0.01">
-    </div>
-    <div class="input-group">
-      <label>চার্জ (৳) — ডিফল্ট ১০ টাকা</label>
-      <input type="number" class="input-field" id="chargeInput" value="10.00" step="0.01">
-    </div>
-
-    <button class="btn-primary" id="generateBtn"><i class="fas fa-camera"></i> স্ক্রিনশট তৈরি</button>
   </div>
 
-  <!-- ================= জেনারেটেড স্ক্রিনশট ================= -->
+  <!-- ================= সেন্ড মানি স্ক্রিনশট ================= -->
   <div id="pageScreenshot" class="page hidden" style="padding:0;">
     <div class="receipt-card" id="screenshotArea">
-
-      <!-- ===== কালো স্ট্যাটাস বার ===== -->
       <div class="status-bar">
         <div class="status-left">
           <span class="time-text" id="dispStatusTime">12:49</span>
-          <div class="notif-icons" id="notifIconsContainer">
-            <!-- Notif icons inject হবে JS দিয়ে -->
-          </div>
+          <div class="notif-icons" id="notifIconsContainer"></div>
         </div>
         <div class="status-right">
           <div class="net-speed">1.08<br>KB/s</div>
           <i id="dispNetIcon" class="fas fa-signal" style="font-size:9.5px;"></i>
           <span id="dispNetType" style="font-size:9px; font-weight: 700;">4G</span>
           <span class="volte-badge">VoLTE</span>
-          <!-- ====== ব্যাটারি সেকশন ====== -->
           <div class="battery-container">
             <i class="fas fa-bolt charging-bolt" id="chargingBolt"></i>
             <span class="battery-percent" id="dispBattery">77%</span>
@@ -574,9 +505,7 @@
         </div>
       </div>
 
-      <!-- ===== মূল কন্টেন্ট ===== -->
       <div class="receipt-body">
-
         <div class="top-success">
           <div class="text-title">
             <span>আপনার</span>
@@ -636,11 +565,9 @@
           <div class="reward-title">বিকাশ রিওয়ার্ড পয়েন্ট</div>
           <div class="reward-desc">পয়েন্ট ব্যবহার করতে <span class="reward-link">বিকাশ রিওয়ার্ডস</span> চেক করুন!</div>
         </div>
-
         <div class="bottom-spacer"></div>
       </div>
 
-      <!-- ===== নিচের হোম বার + ইন্ডিকেটর ===== -->
       <div>
         <div class="bottom-home">
           <span>হোম-এ ফিরে যাই</span>
@@ -650,25 +577,106 @@
           <div class="nav-pill"></div>
         </div>
       </div>
-
     </div>
 
+    <!-- শুধু ডাউনলোড বাটন এবং ফিরে যাওয়ার বাটন -->
     <div class="ctrl-bar">
-      <button class="btn-primary" id="downloadImgBtn"><i class="fas fa-download"></i> ইমেজ ডাউনলোড</button>
+      <button class="btn-primary" id="downloadImgBtn"><i class="fas fa-download"></i> ডাউনলোড করুন</button>
       <button class="btn-primary btn-secondary" id="backBtn"><i class="fas fa-arrow-left"></i> ফিরে</button>
     </div>
+  </div>
+
+  <!-- ================= ট্রানজেকশন হিস্ট্রি স্ক্রিনশট ================= -->
+  <div id="pageHistoryScreenshot" class="page hidden" style="padding:0;">
+    <div class="receipt-card" id="historyScreenshotArea">
+      <div class="status-bar">
+        <div class="status-left">
+          <span class="time-text" id="dispStatusTimeHistory">12:13</span>
+          <div class="notif-icons" id="notifIconsContainerHistory"></div>
+        </div>
+        <div class="status-right">
+          <div class="net-speed">50.0<br>KB/s</div>
+          <i class="fas fa-signal" style="font-size:9.5px;"></i>
+          <span style="font-size:9px; font-weight: 700;">4G</span>
+          <span class="volte-badge">VoLTE</span>
+          <div class="battery-container">
+            <i class="fas fa-bolt charging-bolt show"></i>
+            <span class="battery-percent">84%</span>
+            <i class="fas fa-battery-three-quarters" style="font-size:12px;"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="history-header">
+        <i class="fas fa-arrow-left" style="font-size: 16px; cursor: pointer;"></i>
+        <span>ইনবক্স</span>
+        <i class="fas fa-paper-plane" style="font-size: 16px; cursor: pointer;"></i>
+      </div>
+
+      <div class="history-tabs">
+        <div class="history-tab active">লেনদেনসমূহ</div>
+        <div class="history-tab">নোটিফিকেশন <span class="badge">1</span></div>
+      </div>
+
+      <div class="history-search-bar">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="TrxID বা নাম্বার দিয়ে খুঁজুন" readonly>
+        </div>
+        <div class="filter-btn">
+          <i class="fas fa-sliders-h"></i> ফিল্টার
+        </div>
+      </div>
+
+      <div class="list-title">গত ৯০ দিনের লেনদেন</div>
+
+      <div class="history-list" id="historyListContainer">
+        <!-- JS দিয়ে আইটেম ইনজেক্ট হবে -->
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item"><i class="fas fa-home"></i><span>হোম</span></div>
+        <div class="nav-item"><i class="fas fa-wallet"></i><span>আমার বিকাশ</span></div>
+        <div class="nav-item"><i class="fas fa-qrcode"></i><span>QR স্ক্যান</span></div>
+        <div class="nav-item active">
+          <div class="nav-icon-wrap">
+            <i class="fas fa-envelope"></i>
+            <span class="inbox-badge" id="inboxBadge">0</span>
+          </div>
+          <span>ইনবক্স</span>
+        </div>
+      </div>
+
+      <div class="nav-bar-indicator">
+        <div class="nav-pill"></div>
+      </div>
+    </div>
+
+    <!-- হিস্ট্রি পেজের বাটন -->
+    <div class="ctrl-bar">
+      <button class="btn-primary" id="downloadHistoryBtn"><i class="fas fa-download"></i> হিস্ট্রি ডাউনলোড</button>
+      <button class="btn-primary btn-danger" id="clearHistoryBtn"><i class="fas fa-trash"></i> ক্লিয়ার</button>
+      <button class="btn-primary btn-secondary" id="backHistoryBtn"><i class="fas fa-arrow-left"></i> ফিরে</button>
+    </div>
+  </div>
+  
+  <!-- টোস্ট মেসেজ -->
+  <div id="toast" class="toast">
+    <i class="fas fa-check-circle"></i> <span id="toastMsg">লেনদেন ইনবক্সে সেভ হয়েছে!</span>
   </div>
 </div>
 
 <script>
   (function() {
+    // ==== কমন এলিমেন্ট ====
     const statusTimeInput = document.getElementById('statusTimeInput');
     const batteryInput = document.getElementById('batteryInput');
     const chargingInput = document.getElementById('chargingInput');
     const networkInput = document.getElementById('networkInput');
+    
+    // ==== সেন্ড মানি এলিমেন্ট ====
     const phoneInput = document.getElementById('phoneInput');
     const txnInput = document.getElementById('txnInput');
-
     const dispStatusTime = document.getElementById('dispStatusTime');
     const dispBattery = document.getElementById('dispBattery');
     const dispBatIcon = document.getElementById('dispBatIcon');
@@ -677,18 +685,16 @@
     const dispNetType = document.getElementById('dispNetType');
     const notifIconsContainer = document.getElementById('notifIconsContainer');
 
-    // ==== আইকন ম্যাপিং ====
-    const iconMap = {
-      'youtube': 'fab fa-youtube',
-      'tiktok': 'fab fa-tiktok',
-      'telegram': 'fab fa-telegram-plane',
-      'whatsapp': 'fab fa-whatsapp',
-      'messenger': 'fab fa-facebook-messenger',
-      'instagram': 'fab fa-instagram',
-      'bell': 'fas fa-bell'
-    };
+    // ==== হিস্ট্রি এলিমেন্ট ====
+    const dispStatusTimeHistory = document.getElementById('dispStatusTimeHistory');
+    const notifIconsContainerHistory = document.getElementById('notifIconsContainerHistory');
+    const historyListContainer = document.getElementById('historyListContainer');
+    const inboxBadge = document.getElementById('inboxBadge');
 
-    // ==== র‍্যান্ডম নাম্বার ====
+    // ==== ডাটা স্টোর (লোকাল স্টোরেজ থেকে লোড হবে) ====
+    let userTransactionHistory = JSON.parse(localStorage.getItem('bkashHistory')) || [];
+
+    // ==== র‍্যান্ডম ডেটা জেনারেটর ====
     function generateRandomPhone() {
       const prefixes = ['017', '018', '019', '013', '014', '015', '016'];
       const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
@@ -697,11 +703,13 @@
       return prefix + suffix;
     }
 
-    // ==== র‍্যান্ডম Txn ====
+    // রিয়েলিস্টিক বিকাশ ট্রানজেকশন আইডি জেনারেটর (DI + 8 অক্ষর)
     function generateRandomTxnId() {
       const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-      let result = '';
-      for (let i = 0; i < 10; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
+      let result = 'DI'; // আসল বিকাশের মতো DI দিয়ে শুরু
+      for (let i = 0; i < 8; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
       return result;
     }
 
@@ -745,38 +753,137 @@
     setInterval(updateLiveClock, 1000);
     updateLiveClock();
 
-    // ==== বাটন ক্লিক ====
-    document.getElementById('generateBtn').addEventListener('click', function() {
+    // ==== ইনবক্স রেন্ডার করা ====
+    function renderHistory() {
+      // ইনবক্স ব্যাজ আপডেট
+      inboxBadge.textContent = userTransactionHistory.length;
+      inboxBadge.style.display = userTransactionHistory.length > 0 ? 'flex' : 'none';
 
-      // ১. নাম্বার
+      let html = '';
+      
+      if (userTransactionHistory.length === 0) {
+        html = `
+          <div class="empty-state">
+            <i class="fas fa-inbox"></i>
+            <p>কোন লেনদেন পাওয়া যায়নি।</p>
+            <p style="font-size: 11px; margin-top: 5px;">স্ক্রিনশট ডাউনলোড করলে এখানে জমা হবে।</p>
+          </div>
+        `;
+      } else {
+        // নতুন লেনদেন সবার উপরে দেখানো
+        userTransactionHistory.forEach(item => {
+          let iconHtml = '';
+          let amountClass = 'negative';
+          let amountSign = '- ';
+
+          const colors = ['#fbc02d', '#f57c00', '#8084be', '#f48fb1', '#81c784', '#64b5f6'];
+          const randomColor = colors[Math.floor(Math.random() * colors.length)];
+          // নাম্বারের প্রথম অক্ষর দিয়ে অ্যাভাটার
+          iconHtml = `<div class="history-icon" style="background: ${randomColor}; color: #fff; font-weight: 600; font-size: 14px;">${item.number.charAt(0)}</div>`;
+
+          html += `
+            <div class="history-item">
+              ${iconHtml}
+              <div class="history-info">
+                <div class="history-title">${item.title}</div>
+                <div class="history-number">${item.number}</div>
+                <div class="history-trx">TrxID : ${item.txn}</div>
+              </div>
+              <div class="history-right">
+                <div class="history-amount ${amountClass}">${amountSign}৳${formatAmount(item.amount)}</div>
+                <div class="history-time">${item.time}</div>
+              </div>
+              <i class="fas fa-chevron-right history-arrow"></i>
+            </div>
+          `;
+        });
+      }
+
+      historyListContainer.innerHTML = html;
+    }
+
+    // পেজ লোড হওয়ার সময় ইনবক্স রেন্ডার করা
+    renderHistory();
+
+    // ==== টোস্ট নোটিফিকেশন দেখানো ====
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    // ==== ডাউনলোড হওয়া লেনদেন ইনবক্সে সেভ করা ====
+    function saveCurrentTxToHistory() {
+      // সরাসরি DOM থেকে ডাটা নেওয়া হচ্ছে, যাতে স্ক্রিনে যা দেখা যাচ্ছে ঠিক সেটাই সেভ হয়
+      const phone = document.getElementById('displayPhone').textContent;
+      const txn = document.getElementById('displayTxn').textContent;
+      const amountText = document.getElementById('displayTotal').textContent.replace('৳', '').replace(/,/g, '');
+      const amount = parseFloat(amountText);
+      const time = document.getElementById('displayTime').textContent;
+
+      // ডুপ্লিকেট চেক করা (একই TrxID যেন দুইবার সেভ না হয়)
+      const exists = userTransactionHistory.find(t => t.txn === txn);
+      if (exists) {
+        showToast('এই লেনদেনটি আগেই সেভ করা হয়েছে!');
+        return;
+      }
+
+      const newTx = {
+        type: 'send_money',
+        title: 'সেন্ড মানি',
+        number: phone,
+        amount: amount,
+        time: time,
+        txn: txn
+      };
+
+      userTransactionHistory.unshift(newTx); // সবার উপরে যোগ হবে
+      localStorage.setItem('bkashHistory', JSON.stringify(userTransactionHistory)); // লোকাল স্টোরেজে সেভ
+      
+      showToast('লেনদেন সফলভাবে ইনবক্সে সেভ হয়েছে!');
+      renderHistory(); // ইনবক্স আপডেট
+    }
+
+    // ==== ইমেজ ডাউনলোড হেল্পার ====
+    function triggerDownload(elementId, filenamePrefix) {
+      return new Promise((resolve) => {
+        const area = document.getElementById(elementId);
+        if (!area) { resolve(false); return; }
+        
+        html2canvas(area, { scale: 3, useCORS: true, logging: false, backgroundColor: null }).then(canvas => {
+          const link = document.createElement('a');
+          link.download = `Screenshot_${filenamePrefix}_${Date.now()}.png`;
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+          setTimeout(() => resolve(true), 800); // ডাউনলোড ট্রিগার হওয়ার পর একটু অপেক্ষা
+        }).catch(() => resolve(false));
+      });
+    }
+
+    // ==== বাটন ক্লিক: সেন্ড মানি (শুধু স্ক্রিনে দেখাবে, সেভ হবে না) ====
+    document.getElementById('generateBtn').addEventListener('click', function() {
       let finalPhone = phoneInput.value.trim();
       if (!finalPhone || finalPhone.length !== 11) {
         finalPhone = generateRandomPhone();
         phoneInput.value = finalPhone;
       }
-
-      // ২. Txn
       let finalTxn = txnInput.value.trim();
       if (!finalTxn) {
         finalTxn = generateRandomTxnId();
         txnInput.value = finalTxn;
       }
-
-      // ৩. সময়
       const inputTime = statusTimeInput.value.trim();
       const statusTime = inputTime || getCurrentShortTime();
       dispStatusTime.textContent = statusTime;
       document.getElementById('displayTime').textContent = getFullTimeString(inputTime);
 
-      // ৪. ব্যাটারি + চার্জিং বজ্রপাত
       const bat = batteryInput.value || 77;
       dispBattery.textContent = bat + '%';
-
-      if (chargingInput.value === 'yes') {
-        chargingBolt.classList.add('show');
-      } else {
-        chargingBolt.classList.remove('show');
-      }
+      if (chargingInput.value === 'yes') chargingBolt.classList.add('show');
+      else chargingBolt.classList.remove('show');
 
       const b = parseInt(bat);
       dispBatIcon.style.color = "#ffffff";
@@ -786,7 +893,6 @@
       else if (b >= 15) dispBatIcon.className = "fas fa-battery-quarter";
       else dispBatIcon.className = "fas fa-battery-empty";
 
-      // ৫. নেটওয়ার্ক
       if (networkInput.value === 'WiFi') {
         dispNetIcon.className = "fas fa-wifi";
         dispNetType.textContent = "WiFi";
@@ -795,27 +901,15 @@
         dispNetType.textContent = networkInput.value;
       }
 
-      // ৬. নোটিফিকেশন আইকন (আলাদা আলাদা টগল)
-      const toggles = ['notif1Toggle', 'notif2Toggle', 'notif3Toggle', 'notif4Toggle'];
-      const apps = ['notif1App', 'notif2App', 'notif3App', 'notif4App'];
-      let html = '';
-      for (let i = 0; i < 4; i++) {
-        if (document.getElementById(toggles[i]).checked) {
-          const appVal = document.getElementById(apps[i]).value;
-          const iconClass = iconMap[appVal] || 'fas fa-bell';
-          html += `<i class="${iconClass}"></i>`;
-        }
-      }
-      notifIconsContainer.innerHTML = html;
+      // নোটিফিকেশন আইকন লোড করা (যদি সেট করা থাকে)
+      notifIconsContainer.innerHTML = '<i class="fab fa-youtube"></i><i class="fab fa-telegram-plane"></i><i class="fab fa-whatsapp"></i>';
 
-      // ৭. হিসাব
       const currentBalance = parseFloat(document.getElementById('balanceInput').value || 0);
       const amount = parseFloat(document.getElementById('amountInput').value || 0);
       const charge = parseFloat(document.getElementById('chargeInput').value || 10);
       const total = amount + charge;
       const newBalance = currentBalance - total;
 
-      // ৮. ডিসপ্লে
       document.getElementById('displayPhone').textContent = finalPhone;
       document.getElementById('displayPhoneSub').textContent = finalPhone;
       document.getElementById('avatarLetter').textContent = finalPhone.charAt(0) || '0';
@@ -824,9 +918,19 @@
       document.getElementById('chargeNote').textContent = '+ চার্জ ৳' + formatAmount(charge);
       document.getElementById('displayBalance').textContent = '৳' + formatAmount(newBalance);
 
-      // ৯. পেজ পরিবর্তন
       document.getElementById('pageInput').classList.add('hidden');
       document.getElementById('pageScreenshot').classList.remove('hidden');
+    });
+
+    // ==== বাটন ক্লিক: ইনবক্স দেখা ====
+    document.getElementById('generateHistoryBtn').addEventListener('click', function() {
+      dispStatusTimeHistory.textContent = getCurrentShortTime();
+      notifIconsContainerHistory.innerHTML = '<i class="fab fa-youtube"></i><i class="fab fa-telegram-plane"></i><i class="fab fa-whatsapp"></i>';
+      
+      renderHistory(); // লেটেস্ট ডাটা রেন্ডার করা
+
+      document.getElementById('pageInput').classList.add('hidden');
+      document.getElementById('pageHistoryScreenshot').classList.remove('hidden');
     });
 
     // ==== ফিরে যাওয়া ====
@@ -835,21 +939,34 @@
       document.getElementById('pageInput').classList.remove('hidden');
     });
 
-    // ==== ইমেজ ডাউনলোড (চার কোনা গোল + ট্রান্সপারেন্ট) ====
-    document.getElementById('downloadImgBtn').addEventListener('click', function() {
-      const area = document.getElementById('screenshotArea');
-      html2canvas(area, {
-        scale: 3,
-        useCORS: true,
-        logging: false,
-        backgroundColor: null
-      }).then(canvas => {
-        const link = document.createElement('a');
-        link.download = `bKash_Screenshot_${Date.now()}.png`;
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-      });
+    document.getElementById('backHistoryBtn').addEventListener('click', function() {
+      document.getElementById('pageHistoryScreenshot').classList.add('hidden');
+      document.getElementById('pageInput').classList.remove('hidden');
     });
+
+    // ==== ডাউনলোড বাটন ইভেন্ট (এখানেই সেভ হবে) ====
+    document.getElementById('downloadImgBtn').addEventListener('click', async function() {
+      // ১. ডাউনলোড করা
+      await triggerDownload('screenshotArea', 'bKash_SendMoney');
+      // ২. ডাউনলোড সফল হওয়ার পর ইনবক্সে সেভ করা
+      saveCurrentTxToHistory();
+    });
+
+    // ==== হিস্ট্রি ডাউনলোড বাটন ====
+    document.getElementById('downloadHistoryBtn').addEventListener('click', function() {
+      triggerDownload('historyScreenshotArea', 'bKash_History');
+    });
+
+    // ==== ইনবক্স ক্লিয়ার বাটন ====
+    document.getElementById('clearHistoryBtn').addEventListener('click', function() {
+      if (confirm('আপনি কি নিশ্চিত যে আপনি সব লেনদেন মুছে ফেলতে চান?')) {
+        userTransactionHistory = [];
+        localStorage.removeItem('bkashHistory'); // লোকাল স্টোরেজ থেকেও মুছে ফেলা
+        showToast('সব লেনদেন মুছে ফেলা হয়েছে!');
+        renderHistory(); // ইনবক্স রিফ্রেশ করা
+      }
+    });
+
   })();
 </script>
 </body>
